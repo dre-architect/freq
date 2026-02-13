@@ -1,0 +1,23 @@
+# FREQ AI - Autonomous Barge Drafting System
+# Python Dependencies
+
+# Core dependencies
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Logging and configuration
+pyyaml>=6.0
+
+# Future extensions (commented for minimal scaffold)
+# open3d>=0.17.0  # For advanced point cloud processing
+# opencv-python>=4.8.0  # For RGB-D image processing
+# flask>=2.3.0  # For REST API
+# flask-socketio>=5.3.0  # For WebSocket support
+# gunicorn>=21.0.0  # Production WSGI server
+
+# Development dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
