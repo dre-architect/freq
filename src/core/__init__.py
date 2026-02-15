@@ -7,4 +7,4 @@ from .lattice_core import LatticeCore
 from .point_cloud_processor import PointCloudProcessor
 from .gcode_generator import GCodeGenerator
 
-__all__ = ['LatticeCore', 'PointCloudProcessor', 'GCodeGenerator']
+__all__ = ["LatticeCore", "PointCloudProcessor", "GCodeGenerator"]
