@@ -1,0 +1,94 @@
+# =============================================================================
+# FREQ AI — Pixel Streaming Container for Google Immersive Stream for XR
+# Base image: NVIDIA GPU-enabled Ubuntu with Vulkan support
+# =============================================================================
+
+FROM nvidia/vulkan:1.3-470 AS runtime
+
+LABEL maintainer="FREQ AI"
+LABEL description="FREQ AI Barge Simulation — UE5 Pixel Streaming for Google Immersive Stream"
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libx11-6 \
+    libxcursor1 \
+    libxrandr2 \
+    libxinerama1 \
+    libxi6 \
+    libgl1-mesa-glx \
+    libvulkan1 \
+    libegl1 \
+    libgbm1 \
+    libdrm2 \
+    libxkbcommon0 \
+    libwayland-client0 \
+    xdg-user-dirs \
+    dbus \
+    libpulse0 \
+    libnss3 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libexpat1 \
+    libfontconfig1 \
+    libgcc-s1 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnspr4 \
+    libpango-1.0-0 \
+    libstdc++6 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxss1 \
+    libxtst6 \
+    ca-certificates \
+    fonts-liberation \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app user
+RUN useradd -m -s /bin/bash freq && \
+    mkdir -p /opt/freq-simulation && \
+    chown freq:freq /opt/freq-simulation
+
+WORKDIR /opt/freq-simulation
+
+# Copy the packaged UE5 build
+# Build context should be the StagedBuilds/Linux directory
+COPY --chown=freq:freq . /opt/freq-simulation/
+
+# Make binaries executable
+RUN find /opt/freq-simulation -name "*.sh" -exec chmod +x {} \; && \
+    find /opt/freq-simulation -name "FREQSimulation" -type f -exec chmod +x {} \; && \
+    find /opt/freq-simulation -name "FREQSimulation-Linux-Shipping" -type f -exec chmod +x {} \;
+
+# Expose Pixel Streaming ports
+# 8888 = Streamer port (UE5 → Signaling Server)
+# 80   = HTTP signaling server (WebRTC negotiation)
+# 443  = HTTPS (when SSL termination is in-container)
+EXPOSE 80 443 8888
+
+# Health check for container orchestration
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:80/api/health || exit 1
+
+USER freq
+
+# Launch UE5 with Pixel Streaming
+ENTRYPOINT ["/opt/freq-simulation/FREQSimulation/Binaries/Linux/FREQSimulation"]
+CMD [ \
+    "-AudioMixer", \
+    "-PixelStreamingIP=0.0.0.0", \
+    "-PixelStreamingPort=8888", \
+    "-RenderOffScreen", \
+    "-Unattended", \
+    "-GraphicsAdapter=0", \
+    "-ForceRes", \
+    "-ResX=1920", \
+    "-ResY=1080", \
+    "-AllowPixelStreamingCommands", \
+    "-log" \
+]
