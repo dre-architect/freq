@@ -3,16 +3,50 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 
+// Replace with your Formspree endpoint ID once created.
+// Create one at https://formspree.io — free tier handles 50 submissions/month.
+const FORMSPREE_ID = "";
+
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setError("");
     const form = e.currentTarget;
     const data = new FormData(form);
-    // In production, wire this to an API route or service like Formspree
-    console.log("Form submitted:", Object.fromEntries(data));
-    setSubmitted(true);
+
+    if (FORMSPREE_ID) {
+      // Submit via Formspree
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" },
+        });
+        if (res.ok) {
+          setSubmitted(true);
+        } else {
+          setError("Something went wrong. Please email us directly.");
+        }
+      } catch {
+        setError("Network error. Please email us directly.");
+      }
+    } else {
+      // Fallback: open mailto with form data pre-filled
+      const name = data.get("name") || "";
+      const email = data.get("email") || "";
+      const company = data.get("company") || "";
+      const interest = data.get("interest") || "";
+      const message = data.get("message") || "";
+      const subject = encodeURIComponent(`FREQ AI Contact: ${interest}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nCompany: ${company}\nInterest: ${interest}\n\n${message}`
+      );
+      window.location.href = `mailto:info@freqai.io?subject=${subject}&body=${body}`;
+      setSubmitted(true);
+    }
   }
 
   return (
@@ -37,10 +71,10 @@ export default function ContactPage() {
             <div className="card">
               <h3 className="text-white font-semibold mb-3">Email</h3>
               <a
-                href="mailto:dre@freqai.io"
+                href="mailto:info@freqai.io"
                 className="text-freq-teal hover:underline"
               >
-                dre@freqai.io
+                info@freqai.io
               </a>
             </div>
 
@@ -107,6 +141,18 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="card space-y-6">
+                {error && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
+                    {error}{" "}
+                    <a
+                      href="mailto:info@freqai.io"
+                      className="underline hover:text-red-300"
+                    >
+                      info@freqai.io
+                    </a>
+                  </div>
+                )}
+
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label
