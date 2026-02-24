@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-freq-bg text-freq-text antialiased;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-freq-purple to-freq-teal bg-clip-text text-transparent;
+  }
+  .gradient-border {
+    @apply border border-transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #7C3AED, #06B6D4);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+  .card {
+    @apply bg-freq-card rounded-2xl border border-freq-border p-6 transition-all duration-300 hover:border-freq-purple/30;
+  }
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-20 max-w-7xl mx-auto;
+  }
+  .btn-primary {
+    @apply inline-flex items-center px-6 py-3 bg-freq-purple hover:bg-freq-purple-light text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-freq-purple/25;
+  }
+  .btn-outline {
+    @apply inline-flex items-center px-6 py-3 border border-freq-purple text-freq-purple hover:bg-freq-purple hover:text-white font-semibold rounded-lg transition-all duration-200;
+  }
+}
