@@ -7,4 +7,4 @@ from .validator_agent import ValidatorAgent
 from .vector_computer_agent import VectorComputerAgent
 from .gcode_translator_agent import GCodeTranslatorAgent
 
-__all__ = ['ValidatorAgent', 'VectorComputerAgent', 'GCodeTranslatorAgent']
+__all__ = ["ValidatorAgent", "VectorComputerAgent", "GCodeTranslatorAgent"]
