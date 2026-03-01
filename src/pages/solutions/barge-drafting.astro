@@ -1,0 +1,179 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const glossary = [
+  { term: 'Barge Draft', def: 'The vertical distance between the waterline and the lowest point of the vessel\'s hull. Draft increases as cargo is loaded and the vessel displaces more water.' },
+  { term: 'Draft Survey', def: 'The formal process of measuring a vessel\'s draft at multiple points before and after loading to calculate cargo weight using Archimedes\' principle of displacement.' },
+  { term: 'Trim', def: 'The longitudinal (fore-to-aft) balance of a vessel. Positive trim = deeper at stern. Zero trim = perfectly level keel.' },
+  { term: 'Heel', def: 'The transverse (port-to-starboard) tilt of a vessel. Caused by asymmetric cargo distribution.' },
+  { term: 'Freeboard', def: 'The distance from the waterline to the vessel\'s main deck. Decreases as draft increases.' },
+  { term: 'Displacement', def: 'The weight of water displaced by the vessel. Equal to the total weight of the vessel and all cargo aboard (Archimedes\' principle).' },
+  { term: 'Metacentric Height (GM)', def: 'A measure of initial stability. Higher GM = more stable vessel. Monitored continuously during loading operations.' },
+  { term: 'Man Overboard (MOB)', def: 'A maritime emergency protocol triggered when a crew member falls into the water. Leading cause of non-navigational fatality in commercial maritime operations.' },
+  { term: 'Draft Marks', def: 'Physical measurements painted on a vessel\'s hull at designated stations, used for manual visual reading of draft depth.' },
+  { term: 'Inland Waterway', def: 'Navigable rivers, lakes, and canals used for commercial cargo transport within a country\'s interior. The US inland waterway system spans over 12,000 miles.' },
+];
+const phases = [
+  { num: 1, title: 'Initial Survey', desc: 'Vessel identification and baseline condition assessment. Environmental parameters captured. Operational zone established.' },
+  { num: 2, title: 'Pre-Load Assessment', desc: 'Empty vessel draft readings acquired at all measurement points. Baseline cargo state verified. Loading parameters confirmed.' },
+  { num: 3, title: 'Active Loading', desc: 'Real-time monitoring during cargo loading operations. Continuous draft measurement, stability tracking, and load distribution analysis.' },
+  { num: 4, title: 'Cargo Verification', desc: 'Progressive verification of cargo weight and distribution against target parameters. Automated alerts for deviation from plan.' },
+  { num: 5, title: 'Post-Load Assessment', desc: 'Final loaded draft readings acquired. Comprehensive stability analysis completed. Trim and heel verified within tolerances.' },
+  { num: 6, title: 'Final Survey & Report', desc: 'Complete draft survey generated. All measurements, calculations, and compliance documentation compiled into verified report.' },
+];
+---
+<Layout title="Autonomous Barge Draft Measurement | FREQ AI" description="FREQ AI automates the 4-hour manual barge drafting process. Sub-inch accuracy, zero crew exposure, results in 10–15 minutes.">
+
+<!-- Hero -->
+<section class="grid-bg py-24 md:py-32">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8 text-center">
+    <p class="section-label">Solutions</p>
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6" style="font-family:var(--font-display);">Autonomous Barge Draft Measurement</h1>
+    <p class="text-lg text-[#94A3B8] max-w-3xl mx-auto">The most fundamental operation in inland waterway logistics — transformed.</p>
+  </div>
+</section>
+
+<!-- The Problem -->
+<section class="py-24" style="background:#0D1424;">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">The Problem</p>
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6" style="font-family:var(--font-heading);">How Barge Drafting Works Today</h2>
+    <div class="max-w-3xl space-y-4 text-[#94A3B8] leading-relaxed">
+      <p>Barge drafting — the process of measuring how deep a loaded barge sits in the water to determine cargo weight — is performed manually on virtually every vessel in the US inland waterway system. The process has remained largely unchanged for decades.</p>
+      <p>A typical manual drafting sequence requires a crew member to walk the barge deck to each draft mark location, visually read painted marks on the hull at the waterline, relay readings by radio to a shore-based operator, repeat the process at multiple measurement points along the vessel, and compile all readings into a draft survey report.</p>
+      <p>This process takes approximately 4 hours per barge, requires crew presence on deck in active operational zones, introduces 1–3% measurement error from visual reading and manual recording, and produces paper-based documentation with limited traceability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- The Risks -->
+<section class="py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">The Risks</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card border-t-2 border-t-[#EF4444]">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Safety</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Man overboard is the highest non-navigational cause of fatality in the maritime industry. Every manual drafting operation puts crew members on exposed barge decks alongside active crane and loading equipment.</p>
+      </div>
+      <div class="card border-t-2 border-t-[#F59E0B]">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Accuracy</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Visual gauge reading, radio relay, and manual recording introduce compounding errors. A 1–3% measurement discrepancy on a 1,500-ton barge represents 15–45 tons of unaccounted cargo — real revenue loss on every load.</p>
+      </div>
+      <div class="card border-t-2 border-t-[#06B6D4]">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Time</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">4 hours per barge creates operational bottlenecks across the entire supply chain. Vessels waiting for draft surveys accumulate demurrage charges, delay downstream logistics, and reduce fleet utilization.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Solution -->
+<section class="py-24" style="background:#0D1424;">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">The Solution</p>
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6" style="font-family:var(--font-heading);">How FREQ AI Solves It</h2>
+    <p class="text-[#94A3B8] max-w-3xl mb-12 leading-relaxed">FREQ AI replaces the entire manual drafting sequence with an autonomous operation that completes in 10–15 minutes with zero crew exposure.</p>
+
+    <!-- Before / After -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card border-t-2 border-t-[#F59E0B]">
+        <h3 class="text-sm font-bold text-[#F59E0B] uppercase tracking-wider mb-4" style="font-family:var(--font-label);">Before — Manual Process</h3>
+        <ul class="space-y-3 text-sm text-[#94A3B8]">
+          <li class="flex items-start gap-2"><span class="text-[#F59E0B] mt-0.5">&#10005;</span> 4-hour process duration</li>
+          <li class="flex items-start gap-2"><span class="text-[#F59E0B] mt-0.5">&#10005;</span> Crew on deck required</li>
+          <li class="flex items-start gap-2"><span class="text-[#F59E0B] mt-0.5">&#10005;</span> Visual gauge reading</li>
+          <li class="flex items-start gap-2"><span class="text-[#F59E0B] mt-0.5">&#10005;</span> Radio relay to shore operator</li>
+          <li class="flex items-start gap-2"><span class="text-[#F59E0B] mt-0.5">&#10005;</span> Paper-based documentation</li>
+          <li class="flex items-start gap-2"><span class="text-[#F59E0B] mt-0.5">&#10005;</span> 1–3% measurement error</li>
+          <li class="flex items-start gap-2"><span class="text-[#EF4444] mt-0.5">&#10005;</span> Active man-overboard risk</li>
+        </ul>
+      </div>
+      <div class="card border-t-2 border-t-[#10B981]">
+        <h3 class="text-sm font-bold text-[#10B981] uppercase tracking-wider mb-4" style="font-family:var(--font-label);">After — FREQ AI Autonomous</h3>
+        <ul class="space-y-3 text-sm text-[#94A3B8]">
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> 10–15 minute process duration</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> Zero crew deck exposure</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> Autonomous precision measurement</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> Real-time digital reporting</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> Complete digital audit trail</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> Sub-inch accuracy</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">&#10003;</span> Safety risk eliminated</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6-Phase Operational Sequence -->
+<section class="py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">Operational Sequence</p>
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-10" style="font-family:var(--font-heading);">The Six-Phase Autonomous Sequence</h2>
+    <div class="relative max-w-2xl">
+      <div class="absolute left-4 top-0 bottom-0 w-px" style="background:#1E293B;"></div>
+      {phases.map((p) => (
+        <div class="relative pl-12 pb-10 last:pb-0">
+          <div class="absolute left-0 top-1 w-8 h-8 rounded-full border-2 border-[#7C3AED] flex items-center justify-center" style="background:#080C18;">
+            <span class="text-xs font-bold" style="font-family:var(--font-mono);color:#06B6D4;">{p.num}</span>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2" style="font-family:var(--font-heading);">Phase {p.num}: {p.title}</h3>
+          <p class="text-sm text-[#94A3B8] leading-relaxed">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Glossary -->
+<section class="py-24" style="background:#0D1424;">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">Reference</p>
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-10" style="font-family:var(--font-heading);">Maritime Glossary</h2>
+    <div class="max-w-3xl space-y-2" id="glossary">
+      {glossary.map((item, i) => (
+        <div class="border border-[#1E293B] rounded-lg overflow-hidden">
+          <button
+            class="w-full px-5 py-4 flex items-center justify-between text-left cursor-pointer hover:bg-[#111827] transition-colors glossary-btn"
+            data-idx={i}
+            aria-expanded="false"
+          >
+            <span class="text-sm font-semibold text-white" style="font-family:var(--font-heading);">{item.term}</span>
+            <svg class="w-4 h-4 text-[#64748B] transition-transform duration-200 glossary-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+          </button>
+          <div class="hidden px-5 pb-4 glossary-content" data-idx={i}>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">{item.def}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8 text-center">
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6" style="font-family:var(--font-heading);">See how FREQ AI can transform your drafting operations.</h2>
+    <a href="/contact" class="btn-primary">Contact Us</a>
+  </div>
+</section>
+
+</Layout>
+
+<script>
+  document.querySelectorAll('.glossary-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = btn.getAttribute('data-idx');
+      const content = document.querySelector(`.glossary-content[data-idx="${idx}"]`);
+      const chevron = btn.querySelector('.glossary-chevron');
+      const isOpen = !content?.classList.contains('hidden');
+      // close all
+      document.querySelectorAll('.glossary-content').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('.glossary-chevron').forEach(c => (c as HTMLElement).style.transform = '');
+      document.querySelectorAll('.glossary-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!isOpen) {
+        content?.classList.remove('hidden');
+        if (chevron) (chevron as HTMLElement).style.transform = 'rotate(180deg)';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

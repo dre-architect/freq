@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Platform | FREQ AI" description="FREQ AI's hardware-agnostic intelligence platform for autonomous maritime cargo operations. See the live simulation.">
+
+<!-- Hero -->
+<section class="grid-bg py-24 md:py-32">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8 text-center">
+    <p class="section-label">Platform</p>
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6" style="font-family:var(--font-display);">The Intelligence Layer for Maritime Cargo Operations</h1>
+    <p class="text-lg text-[#94A3B8] max-w-3xl mx-auto">FREQ AI's platform sits between your existing hardware and your operational decisions — transforming raw sensor data into actionable cargo intelligence.</p>
+  </div>
+</section>
+
+<!-- Platform Overview -->
+<section class="py-24" style="background:#0D1424;">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">Overview</p>
+    <p class="text-[#94A3B8] max-w-3xl leading-relaxed">Our platform is hardware-agnostic by design. Whether your operation uses radar, LiDAR, pressure sensors, or visual monitoring, FREQ AI's intelligence layer normalizes data from any source into a unified operational picture. The result: autonomous drafting, real-time monitoring, and verified compliance reporting — regardless of what hardware generates the input.</p>
+  </div>
+</section>
+
+<!-- Capabilities -->
+<section class="py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">Capabilities</p>
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-10" style="font-family:var(--font-heading);">What the Platform Delivers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Autonomous Measurement</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Precision cargo draft readings acquired without manual intervention. Sub-inch accuracy across all measurement points.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Real-Time Monitoring</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Continuous visibility into cargo status, vessel stability, and operational progress. Live data available to all stakeholders.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Safety Governance</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Integrated hazard detection with automatic operational safeguards. Man-overboard risk eliminated from the drafting process.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Compliance &amp; Reporting</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Automated generation of draft surveys, cargo manifests, and regulatory documentation. Complete audit trail for every operation.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Hardware Agnostic</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Works with any sensor input — radar, LiDAR, pressure, drone, or visual. Your hardware, our intelligence.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Fleet Scale</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Designed for single-vessel operations or enterprise fleet management. Intelligence that scales with your operation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Simulation — PlayCanvas Engine -->
+<section class="py-24" style="background:#0D1424;" id="simulation">
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+    <div class="text-center mb-10">
+      <p class="section-label">Live Demonstration</p>
+      <h2 class="text-3xl md:text-4xl font-semibold text-white mb-4" style="font-family:var(--font-heading);">Barge Drafting Simulation</h2>
+      <p class="text-[#94A3B8] max-w-2xl mx-auto text-sm">Explore the autonomous barge drafting process in 3D. Use the camera controls to inspect the vessel from any angle. Press INITIATE SEQUENCE to begin.</p>
+    </div>
+
+    <!-- Simulation Container -->
+    <div id="sim-container" style="position:relative;width:100%;border-radius:8px;overflow:hidden;border:1px solid #1E293B;background:#080C18;">
+
+      <!-- Control Bar (HTML overlay — top) -->
+      <div id="sim-control-bar" style="position:relative;z-index:10;background:#111827;border-bottom:1px solid #1E293B;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-family:var(--font-mono);color:#7C3AED;font-size:13px;font-weight:700;">FREQ AI SOL</span>
+          <span style="color:#64748B;font-size:12px;">&middot;</span>
+          <span style="font-family:var(--font-heading);color:#94A3B8;font-size:12px;">BARGE DRAFTING SIMULATION</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span id="sim-status-dot" class="status-dot idle"></span>
+          <span id="sim-status-label" style="font-family:var(--font-mono);color:#94A3B8;font-size:11px;">SYSTEM READY</span>
+        </div>
+      </div>
+
+      <!-- Buttons Bar (HTML overlay) -->
+      <div id="sim-buttons-bar" style="position:relative;z-index:10;background:#0D1424;border-bottom:1px solid #1E293B;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+        <div id="sim-action-btns" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button id="btn-start" style="background:#7C3AED;color:white;border:none;padding:8px 16px;border-radius:6px;font-family:var(--font-heading);font-size:13px;font-weight:600;cursor:pointer;">&#9654; INITIATE SEQUENCE</button>
+          <button id="btn-pause" style="display:none;background:#F59E0B;color:#080C18;border:none;padding:8px 16px;border-radius:6px;font-family:var(--font-heading);font-size:13px;font-weight:600;cursor:pointer;">&#9208; PAUSE</button>
+          <button id="btn-resume" style="display:none;background:#06B6D4;color:#080C18;border:none;padding:8px 16px;border-radius:6px;font-family:var(--font-heading);font-size:13px;font-weight:600;cursor:pointer;">&#9654; RESUME</button>
+          <button id="btn-restart" style="display:none;background:#7C3AED;color:white;border:none;padding:8px 16px;border-radius:6px;font-family:var(--font-heading);font-size:13px;font-weight:600;cursor:pointer;">&#8634; RUN AGAIN</button>
+          <button id="btn-reset" style="display:none;background:transparent;color:#94A3B8;border:1px solid #1E293B;padding:8px 16px;border-radius:6px;font-family:var(--font-heading);font-size:13px;cursor:pointer;">&#8634; RESET</button>
+        </div>
+        <!-- Camera Toolbar -->
+        <div id="sim-camera-bar" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+          <span style="font-family:var(--font-label);color:#64748B;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Camera:</span>
+          <button class="cam-btn active" data-cam="orbit" style="background:rgba(124,58,237,0.15);color:#7C3AED;border:1px solid #7C3AED;padding:4px 10px;border-radius:4px;font-family:var(--font-heading);font-size:11px;cursor:pointer;">ORBIT</button>
+          <button class="cam-btn" data-cam="overhead" style="background:transparent;color:#64748B;border:1px solid #1E293B;padding:4px 10px;border-radius:4px;font-family:var(--font-heading);font-size:11px;cursor:pointer;">OVERHEAD</button>
+          <button class="cam-btn" data-cam="side" style="background:transparent;color:#64748B;border:1px solid #1E293B;padding:4px 10px;border-radius:4px;font-family:var(--font-heading);font-size:11px;cursor:pointer;">SIDE</button>
+          <button class="cam-btn" data-cam="fore" style="background:transparent;color:#64748B;border:1px solid #1E293B;padding:4px 10px;border-radius:4px;font-family:var(--font-heading);font-size:11px;cursor:pointer;">FORE</button>
+          <button class="cam-btn" data-cam="aft" style="background:transparent;color:#64748B;border:1px solid #1E293B;padding:4px 10px;border-radius:4px;font-family:var(--font-heading);font-size:11px;cursor:pointer;">AFT</button>
+        </div>
+      </div>
+
+      <!-- PlayCanvas Canvas -->
+      <div style="position:relative;">
+        <canvas id="freqCanvas" style="width:100%;height:500px;display:block;background:#080C18;"></canvas>
+
+        <!-- Station Data Cards (HTML overlay — positioned over canvas) -->
+        <div id="sim-station-cards" style="position:absolute;top:12px;right:12px;z-index:10;display:flex;flex-direction:column;gap:6px;pointer-events:none;">
+          <div class="station-card" id="card-fp" style="background:rgba(17,24,39,0.9);border:1px solid #1E293B;border-radius:6px;padding:8px 12px;min-width:160px;">
+            <div style="font-family:var(--font-label);color:#64748B;font-size:9px;letter-spacing:0.1em;">FORE PORT</div>
+            <div style="font-family:var(--font-mono);color:#06B6D4;font-size:16px;font-weight:700;" id="val-fp">--</div>
+          </div>
+          <div class="station-card" id="card-mp" style="background:rgba(17,24,39,0.9);border:1px solid #1E293B;border-radius:6px;padding:8px 12px;min-width:160px;">
+            <div style="font-family:var(--font-label);color:#64748B;font-size:9px;letter-spacing:0.1em;">MID PORT</div>
+            <div style="font-family:var(--font-mono);color:#06B6D4;font-size:16px;font-weight:700;" id="val-mp">--</div>
+          </div>
+          <div class="station-card" id="card-ap" style="background:rgba(17,24,39,0.9);border:1px solid #1E293B;border-radius:6px;padding:8px 12px;min-width:160px;">
+            <div style="font-family:var(--font-label);color:#64748B;font-size:9px;letter-spacing:0.1em;">AFT PORT</div>
+            <div style="font-family:var(--font-mono);color:#06B6D4;font-size:16px;font-weight:700;" id="val-ap">--</div>
+          </div>
+        </div>
+
+        <!-- Telemetry Panel (HTML overlay — bottom left) -->
+        <div id="sim-telemetry" style="position:absolute;bottom:12px;left:12px;z-index:10;background:rgba(8,12,24,0.92);border:1px solid #1E293B;border-radius:6px;padding:12px 16px;min-width:280px;pointer-events:none;">
+          <div style="font-family:var(--font-mono);color:#7C3AED;font-size:11px;font-weight:700;margin-bottom:6px;">LIVE TELEMETRY</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-family:var(--font-mono);font-size:11px;">
+            <span style="color:#64748B;">CARGO MASS</span><span style="color:#06B6D4;" id="tel-cargo">0.0 T</span>
+            <span style="color:#64748B;">DISPLACEMENT</span><span style="color:#06B6D4;" id="tel-disp">1,000.0 T</span>
+            <span style="color:#64748B;">LOAD</span><span style="color:#06B6D4;" id="tel-load">0.0%</span>
+            <span style="color:#64748B;">TRIM</span><span style="color:#10B981;" id="tel-trim">0.00 ft</span>
+            <span style="color:#64748B;">HEEL</span><span style="color:#10B981;" id="tel-heel">0.00&deg;</span>
+            <span style="color:#64748B;">GM</span><span style="color:#10B981;" id="tel-gm">4.82 ft</span>
+            <span style="color:#64748B;">FREEBOARD</span><span style="color:#10B981;" id="tel-free">5.50 ft</span>
+            <span style="color:#64748B;">ELAPSED</span><span style="color:#06B6D4;" id="tel-time">00:00</span>
+          </div>
+        </div>
+
+        <!-- Narration Text (HTML overlay — bottom center) -->
+        <div id="sim-narration" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(8,12,24,0.92);border:1px solid #7C3AED33;border-radius:6px;padding:10px 20px;max-width:400px;text-align:center;pointer-events:none;display:none;">
+          <p id="narration-text" style="font-family:var(--font-body);color:#F1F5F9;font-size:12px;line-height:1.5;"></p>
+        </div>
+      </div>
+
+      <!-- Phase Progress Bar (HTML overlay — bottom) -->
+      <div id="sim-phase-bar" style="position:relative;z-index:10;background:#111827;border-top:1px solid #1E293B;padding:14px 20px;">
+        <div style="font-family:var(--font-label);color:#64748B;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Operational Sequence</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="phase-node" data-phase="0" style="text-align:center;flex:0;">
+            <div id="phase-dot-0" style="width:20px;height:20px;border-radius:50%;border:2px solid #1E293B;display:flex;align-items:center;justify-content:center;margin:0 auto;"><span style="font-family:var(--font-mono);font-size:9px;color:#64748B;">1</span></div>
+            <span id="phase-lbl-0" style="font-family:var(--font-mono);font-size:8px;color:#64748B;display:block;margin-top:3px;">PENDING</span>
+          </div>
+          <div style="flex:1;height:2px;background:#1E293B;"></div>
+          <div class="phase-node" data-phase="1" style="text-align:center;flex:0;">
+            <div id="phase-dot-1" style="width:20px;height:20px;border-radius:50%;border:2px solid #1E293B;display:flex;align-items:center;justify-content:center;margin:0 auto;"><span style="font-family:var(--font-mono);font-size:9px;color:#64748B;">2</span></div>
+            <span id="phase-lbl-1" style="font-family:var(--font-mono);font-size:8px;color:#64748B;display:block;margin-top:3px;">PENDING</span>
+          </div>
+          <div style="flex:1;height:2px;background:#1E293B;"></div>
+          <div class="phase-node" data-phase="2" style="text-align:center;flex:0;">
+            <div id="phase-dot-2" style="width:20px;height:20px;border-radius:50%;border:2px solid #1E293B;display:flex;align-items:center;justify-content:center;margin:0 auto;"><span style="font-family:var(--font-mono);font-size:9px;color:#64748B;">3</span></div>
+            <span id="phase-lbl-2" style="font-family:var(--font-mono);font-size:8px;color:#64748B;display:block;margin-top:3px;">PENDING</span>
+          </div>
+          <div style="flex:1;height:2px;background:#1E293B;"></div>
+          <div class="phase-node" data-phase="3" style="text-align:center;flex:0;">
+            <div id="phase-dot-3" style="width:20px;height:20px;border-radius:50%;border:2px solid #1E293B;display:flex;align-items:center;justify-content:center;margin:0 auto;"><span style="font-family:var(--font-mono);font-size:9px;color:#64748B;">4</span></div>
+            <span id="phase-lbl-3" style="font-family:var(--font-mono);font-size:8px;color:#64748B;display:block;margin-top:3px;">PENDING</span>
+          </div>
+          <div style="flex:1;height:2px;background:#1E293B;"></div>
+          <div class="phase-node" data-phase="4" style="text-align:center;flex:0;">
+            <div id="phase-dot-4" style="width:20px;height:20px;border-radius:50%;border:2px solid #1E293B;display:flex;align-items:center;justify-content:center;margin:0 auto;"><span style="font-family:var(--font-mono);font-size:9px;color:#64748B;">5</span></div>
+            <span id="phase-lbl-4" style="font-family:var(--font-mono);font-size:8px;color:#64748B;display:block;margin-top:3px;">PENDING</span>
+          </div>
+          <div style="flex:1;height:2px;background:#1E293B;"></div>
+          <div class="phase-node" data-phase="5" style="text-align:center;flex:0;">
+            <div id="phase-dot-5" style="width:20px;height:20px;border-radius:50%;border:2px solid #1E293B;display:flex;align-items:center;justify-content:center;margin:0 auto;"><span style="font-family:var(--font-mono);font-size:9px;color:#64748B;">6</span></div>
+            <span id="phase-lbl-5" style="font-family:var(--font-mono);font-size:8px;color:#64748B;display:block;margin-top:3px;">PENDING</span>
+          </div>
+        </div>
+        <div id="phase-desc" style="font-family:var(--font-heading);color:#94A3B8;font-size:12px;margin-top:8px;"></div>
+      </div>
+
+      <!-- Completion Summary (hidden until COMPLETE) -->
+      <div id="sim-complete" style="display:none;background:#111827;border-top:1px solid #1E293B;padding:20px;">
+        <div style="font-family:var(--font-heading);color:#06B6D4;font-size:14px;font-weight:700;margin-bottom:12px;">SURVEY COMPLETE &mdash; BARGE-402</div>
+        <div style="font-family:var(--font-mono);font-size:12px;line-height:2;color:#94A3B8;">
+          <div>Total Operation Time: <span style="color:#06B6D4;">14 min 23 sec</span></div>
+          <div>Final Cargo Mass: <span style="color:#06B6D4;">1,482.6 T</span> <span style="color:#10B981;">(VERIFIED)</span></div>
+          <div>Final Average Draft: <span style="color:#06B6D4;">9.84 ft</span></div>
+          <div>Trim: <span style="color:#06B6D4;">0.08 ft</span> <span style="color:#10B981;">(NOMINAL)</span></div>
+          <div>Heel: <span style="color:#06B6D4;">0.01&deg;</span> <span style="color:#10B981;">(NOMINAL)</span></div>
+          <div>Measurement Accuracy: <span style="color:#06B6D4;">&plusmn; 0.02 ft</span> <span style="color:#10B981;">(SUB-INCH)</span></div>
+          <div>Crew Deck Exposure: <span style="color:#10B981;font-weight:700;">ZERO</span></div>
+          <div>Report Status: <span style="color:#10B981;">GENERATED &amp; LOGGED</span></div>
+        </div>
+        <div style="border-top:1px solid #1E293B;margin-top:12px;padding-top:12px;font-family:var(--font-mono);font-size:12px;color:#F59E0B;">
+          vs. Manual Process: ~4 hours &rarr; 14 minutes | 1&ndash;3% error &rarr; sub-inch
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases -->
+<section class="py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <p class="section-label">Use Cases</p>
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-10" style="font-family:var(--font-heading);">Built for Maritime Operations</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Autonomous Barge Draft Measurement</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed mb-4">Automate the 4-hour manual drafting process in 10–15 minutes with zero crew exposure.</p>
+        <a href="/solutions/barge-drafting" class="text-sm text-[#06B6D4] hover:underline">View Solution &rarr;</a>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Cargo Load Optimization</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Maximize revenue per barge trip through precision loading and real-time stability monitoring.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Safety Monitoring</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Continuous operational zone monitoring with automatic hazard detection and emergency protocols.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold text-white mb-3" style="font-family:var(--font-heading);">Fleet Intelligence</h3>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">Real-time visibility across your entire barge fleet unified in a single intelligence platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-24" style="background:#0D1424;">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8 text-center">
+    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6" style="font-family:var(--font-heading);">Ready to see what FREQ AI can do for your operation?</h2>
+    <a href="/contact" class="btn-primary">Contact Us</a>
+  </div>
+</section>
+
+<!-- PlayCanvas Engine (CDN — self-contained runtime) -->
+<script src="https://code.playcanvas.com/playcanvas-stable.min.js" defer></script>
+<!-- Simulation Script — pc.createScript() API -->
+<script src="/simulation-pc.js" defer></script>
+
+</Layout>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(30,41,59,0.3)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#080C18"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <line x1="400" y1="290" x2="800" y2="290" stroke="#7C3AED" stroke-width="2"/>
+  <text x="600" y="340" text-anchor="middle" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="80" font-weight="700">FREQ AI</text>
+  <text x="600" y="390" text-anchor="middle" fill="#94A3B8" font-family="Space Grotesk, sans-serif" font-size="28">Autonomous Maritime Intelligence</text>
+</svg>

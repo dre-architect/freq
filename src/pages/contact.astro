@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact | FREQ AI" description="Contact FREQ AI — maritime intelligence platform for autonomous barge drafting. Based in Slidell, Louisiana.">
+
+<!-- Hero -->
+<section class="grid-bg py-24 md:py-32">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8 text-center">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6" style="font-family:var(--font-display);">Get in Touch</h1>
+    <p class="text-lg text-[#94A3B8] max-w-3xl mx-auto">Whether you're an operator exploring autonomous drafting, a technology partner, or an investor — we'd like to hear from you.</p>
+  </div>
+</section>
+
+<!-- Contact Form + Info -->
+<section class="py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Left: Form -->
+      <div class="card">
+        <h2 class="text-xl font-semibold text-white mb-6" style="font-family:var(--font-heading);">Send a Message</h2>
+        <form id="contact-form" method="POST">
+          <div class="mb-5">
+            <label for="name" class="block text-sm text-[#94A3B8] mb-2" style="font-family:var(--font-heading);">Name <span class="text-[#EF4444]">*</span></label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-[#1E293B] text-[#F1F5F9] text-sm focus:outline-none focus:border-[#7C3AED] transition-colors" style="background:#0D1424;font-family:var(--font-body);" />
+          </div>
+          <div class="mb-5">
+            <label for="email" class="block text-sm text-[#94A3B8] mb-2" style="font-family:var(--font-heading);">Email <span class="text-[#EF4444]">*</span></label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-[#1E293B] text-[#F1F5F9] text-sm focus:outline-none focus:border-[#7C3AED] transition-colors" style="background:#0D1424;font-family:var(--font-body);" />
+          </div>
+          <div class="mb-5">
+            <label for="company" class="block text-sm text-[#94A3B8] mb-2" style="font-family:var(--font-heading);">Company</label>
+            <input type="text" id="company" name="company" class="w-full px-4 py-3 rounded-lg border border-[#1E293B] text-[#F1F5F9] text-sm focus:outline-none focus:border-[#7C3AED] transition-colors" style="background:#0D1424;font-family:var(--font-body);" />
+          </div>
+          <div class="mb-6">
+            <label for="message" class="block text-sm text-[#94A3B8] mb-2" style="font-family:var(--font-heading);">Message <span class="text-[#EF4444]">*</span></label>
+            <textarea id="message" name="message" required rows="5" class="w-full px-4 py-3 rounded-lg border border-[#1E293B] text-[#F1F5F9] text-sm focus:outline-none focus:border-[#7C3AED] transition-colors resize-y" style="background:#0D1424;font-family:var(--font-body);"></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full text-center cursor-pointer">Send Message</button>
+          <!-- Success state -->
+          <div id="form-success" class="hidden mt-4 p-4 rounded-lg border border-[#10B981]" style="background:rgba(16,185,129,0.08);">
+            <p class="text-sm text-[#10B981] flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#10B981"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Message sent. We'll be in touch shortly.
+            </p>
+          </div>
+          <!-- Error state -->
+          <div id="form-error" class="hidden mt-4 p-4 rounded-lg border border-[#EF4444]" style="background:rgba(239,68,68,0.08);">
+            <p class="text-sm text-[#EF4444]">Something went wrong. Please email us directly at <a href="mailto:info@freqai.io" class="underline">info@freqai.io</a></p>
+          </div>
+        </form>
+      </div>
+      <!-- Right: Direct Contact -->
+      <div class="flex flex-col justify-center">
+        <h2 class="text-xl font-semibold text-white mb-8" style="font-family:var(--font-heading);">Direct Contact</h2>
+        <div class="space-y-6">
+          <div>
+            <p class="text-xs text-[#64748B] uppercase tracking-wider mb-1" style="font-family:var(--font-label);">Email</p>
+            <a href="mailto:info@freqai.io" class="text-[#06B6D4] hover:underline">info@freqai.io</a>
+          </div>
+          <div>
+            <p class="text-xs text-[#64748B] uppercase tracking-wider mb-1" style="font-family:var(--font-label);">Location</p>
+            <p class="text-[#F1F5F9]">Slidell, Louisiana</p>
+          </div>
+          <div>
+            <p class="text-xs text-[#64748B] uppercase tracking-wider mb-1" style="font-family:var(--font-label);">LinkedIn</p>
+            <a href="https://linkedin.com/in/andry-alvarez" target="_blank" rel="noopener noreferrer" class="text-[#06B6D4] hover:underline">linkedin.com/in/andry-alvarez</a>
+          </div>
+          <div class="mt-8 p-4 rounded-lg border border-[#1E293B]" style="background:#0D1424;">
+            <p class="text-sm text-[#94A3B8]">We typically respond within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</Layout>
+
+<script>
+  const FORMSPREE_ID = "";
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successEl = document.getElementById('form-success');
+  const errorEl = document.getElementById('form-error');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    successEl?.classList.add('hidden');
+    errorEl?.classList.add('hidden');
+
+    if (FORMSPREE_ID) {
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          successEl?.classList.remove('hidden');
+        } else {
+          errorEl?.classList.remove('hidden');
+        }
+      } catch {
+        errorEl?.classList.remove('hidden');
+      }
+    } else {
+      const name = (document.getElementById('name') as HTMLInputElement).value;
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const company = (document.getElementById('company') as HTMLInputElement).value;
+      const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+      const subject = encodeURIComponent(`FREQ AI Contact: ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\n${message}`);
+      window.location.href = `mailto:info@freqai.io?subject=${subject}&body=${body}`;
+      form.reset();
+      successEl?.classList.remove('hidden');
+    }
+  });
+</script>

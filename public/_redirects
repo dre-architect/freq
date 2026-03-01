@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects
+# Ensure no trailing slash issues
+/platform/  /platform  301
+/about/  /about  301
+/team/  /team  301
+/contact/  /contact  301
+/solutions/barge-drafting/  /solutions/barge-drafting  301

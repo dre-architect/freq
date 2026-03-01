@@ -1,0 +1,329 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="FREQ AI | Autonomous Maritime Cargo Intelligence"
+  description="FREQ AI replaces the 4-hour manual barge drafting process with autonomous intelligence — delivering results in 15 minutes with zero crew exposure."
+>
+  <script type="application/ld+json" slot="schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FREQ AI",
+      "description": "Autonomous maritime cargo intelligence platform",
+      "url": "https://freqai.io",
+      "foundingDate": "2024",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Slidell",
+        "addressRegion": "LA",
+        "addressCountry": "US"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "info@freqai.io",
+        "contactType": "sales"
+      }
+    }
+  </script>
+
+  <!-- HERO SECTION -->
+  <section class="grid-bg py-24 md:py-32">
+    <div class="max-w-[1280px] mx-auto px-6 max-w-3xl flex flex-col items-center text-center">
+      <p class="section-label text-accent mb-6">Maritime Intelligence Platform</p>
+      
+      <h1 class="font-display text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
+        Maritime Cargo Drafting, Reinvented.
+      </h1>
+      
+      <p class="text-secondary text-lg md:text-xl mb-12 max-w-2xl">
+        FREQ AI replaces the 4-hour manual barge drafting process with autonomous intelligence — delivering results in 15 minutes with zero crew exposure.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/platform" class="btn-primary">
+          Explore the Platform
+        </a>
+        <a href="/contact" class="btn-secondary">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM SECTION -->
+  <section style="background-color: var(--bg-secondary);" class="py-24">
+    <div class="max-w-[1280px] mx-auto px-6">
+      <p class="section-label text-accent mb-4">The Problem</p>
+      
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-8">
+        An Industry Running on Outdated Methods
+      </h2>
+      
+      <p class="text-secondary text-lg mb-16 max-w-3xl">
+        Every day, thousands of barges on America's inland waterways undergo a manual cargo drafting process that hasn't changed in decades. Crew members walk barge decks in hazardous conditions, take manual gauge readings, relay numbers by radio, and compile reports by hand. The process takes 4 hours per barge, introduces 1-3% measurement error, and exposes workers to the highest non-navigational fatality risk in the maritime industry.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Stat Card 1 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">$2.1B</p>
+          <p class="font-label text-text-secondary font-semibold mb-2">Annual cargo discrepancies on US inland waterways</p>
+        </div>
+        
+        <!-- Stat Card 2 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">4 Hours</p>
+          <p class="font-label text-text-secondary font-semibold mb-2">Average manual drafting time per barge</p>
+        </div>
+        
+        <!-- Stat Card 3 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">1–3%</p>
+          <p class="font-label text-text-secondary font-semibold mb-2">Industry-standard measurement error rate</p>
+        </div>
+        
+        <!-- Stat Card 4 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">#1 Risk</p>
+          <p class="font-label text-text-secondary font-semibold mb-2">Man overboard — leading non-navigational fatality</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION SECTION -->
+  <section class="py-24">
+    <div class="max-w-[1280px] mx-auto px-6">
+      <p class="section-label text-accent mb-4">The Solution</p>
+      
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-8">
+        The Intelligence Layer Maritime Has Been Missing
+      </h2>
+      
+      <p class="text-secondary text-lg mb-16 max-w-3xl">
+        FREQ AI builds autonomous intelligence for maritime cargo operations. Our platform replaces manual processes with AI-driven data acquisition, real-time analysis, and verified reporting — reducing drafting time by over 90% while eliminating crew safety risk entirely.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Solution Card 1 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-3xl font-bold mb-3" style="color: var(--teal);">10–15 Min</p>
+          <p class="font-label text-white font-semibold mb-4">Autonomous Drafting</p>
+          <p class="text-secondary text-sm">What took 4 hours now takes minutes through automated data acquisition and AI-driven analysis.</p>
+        </div>
+        
+        <!-- Solution Card 2 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-3xl font-bold mb-3" style="color: var(--teal);">Sub-Inch</p>
+          <p class="font-label text-white font-semibold mb-4">Precision Measurement</p>
+          <p class="text-secondary text-sm">Exceeding manual accuracy by orders of magnitude, eliminating cargo discrepancies and revenue leakage.</p>
+        </div>
+        
+        <!-- Solution Card 3 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-3xl font-bold mb-3" style="color: var(--teal);">Zero</p>
+          <p class="font-label text-white font-semibold mb-4">Crew Exposure</p>
+          <p class="text-secondary text-sm">No personnel required on deck during drafting operations. Man-overboard risk eliminated entirely.</p>
+        </div>
+        
+        <!-- Solution Card 4 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-3xl font-bold mb-3" style="color: var(--teal);">Real-Time</p>
+          <p class="font-label text-white font-semibold mb-4">Continuous Intelligence</p>
+          <p class="text-secondary text-sm">Live cargo status, draft readings, and stability metrics available instantly to all stakeholders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section style="background-color: var(--bg-secondary);" class="py-24">
+    <div class="max-w-[1280px] mx-auto px-6">
+      <p class="section-label text-accent mb-4">How It Works</p>
+      
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-16">
+        Four Steps from Vessel to Verified Report
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="relative">
+          <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+            <p class="font-data text-3xl font-bold mb-4" style="color: var(--accent);">01</p>
+            <p class="font-label text-white font-semibold mb-3">Target</p>
+            <p class="text-secondary text-sm">Identify the vessel and define operational parameters for the drafting sequence.</p>
+          </div>
+          <div class="hidden lg:block absolute top-1/2 -right-3 w-6 h-px" style="background-color: var(--border); transform: translateY(-50%);"></div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="relative">
+          <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+            <p class="font-data text-3xl font-bold mb-4" style="color: var(--accent);">02</p>
+            <p class="font-label text-white font-semibold mb-3">Execute</p>
+            <p class="text-secondary text-sm">Autonomous data acquisition captures precise measurements across the entire vessel.</p>
+          </div>
+          <div class="hidden lg:block absolute top-1/2 -right-3 w-6 h-px" style="background-color: var(--border); transform: translateY(-50%);"></div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="relative">
+          <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+            <p class="font-data text-3xl font-bold mb-4" style="color: var(--accent);">03</p>
+            <p class="font-label text-white font-semibold mb-3">Analyze</p>
+            <p class="text-secondary text-sm">AI-driven intelligence processes raw data into verified cargo metrics in real-time.</p>
+          </div>
+          <div class="hidden lg:block absolute top-1/2 -right-3 w-6 h-px" style="background-color: var(--border); transform: translateY(-50%);"></div>
+        </div>
+        
+        <!-- Step 4 -->
+        <div>
+          <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+            <p class="font-data text-3xl font-bold mb-4" style="color: var(--accent);">04</p>
+            <p class="font-label text-white font-semibold mb-3">Report</p>
+            <p class="text-secondary text-sm">Comprehensive draft readings, stability analysis, and compliance documentation delivered instantly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET SECTION -->
+  <section class="py-24">
+    <div class="max-w-[1280px] mx-auto px-6">
+      <p class="section-label text-accent mb-4">The Opportunity</p>
+      
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-8">
+        America's Inland Waterways Are Ready for Transformation
+      </h2>
+      
+      <p class="text-secondary text-lg mb-16 max-w-3xl">
+        The US inland waterway system is the backbone of domestic commerce — and it's overdue for modernization.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Market Stat 1 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">22,356</p>
+          <p class="font-label text-text-secondary font-semibold">Active barges on US inland waterways</p>
+        </div>
+        
+        <!-- Market Stat 2 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">600M+</p>
+          <p class="font-label text-text-secondary font-semibold">Tons of cargo transported annually</p>
+        </div>
+        
+        <!-- Market Stat 3 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">$6.96B</p>
+          <p class="font-label text-text-secondary font-semibold">Autonomous maritime market size (2025)</p>
+        </div>
+        
+        <!-- Market Stat 4 -->
+        <div style="background-color: var(--card); border: 1px solid var(--border);" class="card p-8 rounded-lg">
+          <p class="font-data text-4xl font-bold mb-3" style="color: var(--teal);">D+</p>
+          <p class="font-label text-text-secondary font-semibold">ASCE infrastructure grade for inland waterways</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section style="background-color: var(--bg-secondary);" class="py-24">
+    <div class="max-w-[1280px] mx-auto px-6 text-center">
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-6">
+        Ready to modernize your cargo operations?
+      </h2>
+      
+      <p class="text-secondary text-lg mb-10 max-w-2xl mx-auto">
+        Connect with our team to learn how FREQ AI can transform your maritime drafting process.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <a href="/contact" class="btn-primary">
+          Get in Touch
+        </a>
+      </div>
+      
+      <p class="text-secondary text-base">
+        <a href="mailto:info@freqai.io" class="hover:text-accent transition-colors">
+          info@freqai.io
+        </a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  :root {
+    --bg-primary: #080C18;
+    --bg-secondary: #0D1424;
+    --card: #111827;
+    --border: #1E293B;
+    --accent: #7C3AED;
+    --teal: #06B6D4;
+    --green: #10B981;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+  }
+
+  .section-label {
+    font-family: var(--font-label);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    background-color: var(--accent);
+    color: white;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .grid-bg {
+    background-color: var(--bg-primary);
+  }
+
+  .card {
+    background-color: var(--card);
+  }
+</style>

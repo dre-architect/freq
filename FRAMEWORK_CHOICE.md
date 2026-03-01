@@ -1,0 +1,1 @@
+Framework: Astro 5 + TypeScript + Tailwind CSS 4 — Reason: Zero JS by default, component reuse across 6 pages, islands architecture for simulation interactivity, clean Vercel deployment, impossible to nest incorrectly.
