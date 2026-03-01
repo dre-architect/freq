@@ -40,11 +40,11 @@
     }
     window.addEventListener('resize', resizeCanvas);
 
-    // Scene settings
+    // Scene settings — PlayCanvas Engine v1 (1.67.0)
+    app.scene.toneMapping = pc.TONEMAP_ACES;
     app.scene.ambientLight = new pc.Color(0.15, 0.18, 0.25);
-    app.scene.rendering.toneMapping = pc.TONEMAP_ACES;
     app.scene.skyboxIntensity = 0.3;
-    app.scene.rendering.fog = pc.FOG_LINEAR;
+    app.scene.fog = pc.FOG_LINEAR;
     app.scene.fogColor = new pc.Color(0.03, 0.05, 0.09);
     app.scene.fogStart = 80;
     app.scene.fogEnd = 200;
@@ -497,24 +497,15 @@
     });
 
     // ─── BUTTON HANDLERS ───
-    document.getElementById('btn-start').addEventListener('click', function () {
-      simState = 'RUNNING';
-    });
-    document.getElementById('btn-pause').addEventListener('click', function () {
-      simState = 'PAUSED';
-    });
-    document.getElementById('btn-resume').addEventListener('click', function () {
-      simState = 'RUNNING';
-    });
-    document.getElementById('btn-reset').addEventListener('click', function () {
-      simState = 'IDLE';
-      simElapsed = 0;
-      updateScene();
-    });
-    document.getElementById('btn-restart').addEventListener('click', function () {
-      simElapsed = 0;
-      simState = 'RUNNING';
-    });
+    function bindBtn(id, fn) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', fn);
+    }
+    bindBtn('btn-start', function () { simState = 'RUNNING'; });
+    bindBtn('btn-pause', function () { simState = 'PAUSED'; });
+    bindBtn('btn-resume', function () { simState = 'RUNNING'; });
+    bindBtn('btn-reset', function () { simState = 'IDLE'; simElapsed = 0; updateScene(); });
+    bindBtn('btn-restart', function () { simElapsed = 0; simState = 'RUNNING'; });
 
     // ─── CAMERA BUTTON HANDLERS ───
     document.querySelectorAll('.cam-btn').forEach(function (btn) {
