@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Twin | FREQ AI</title>
+<meta name="description" content="Experience the immersive FREQ AI digital twin — watch the full autonomous barge drafting operation from first LiDAR scan to certified report in 15 minutes.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Digital Twin | FREQ AI">
+<meta property="og:description" content="Watch the complete autonomous barge drafting operation. Understand why FREQ AI is a 10x improvement over manual methods.">
+<meta property="og:image" content="/og-image.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+/* ── DIGITAL TWIN PAGE STYLES ─────────────────────────────────────────── */
+
+/* Viewport container */
+.dt-viewport-wrap {
+  position: relative;
+  width: 100%;
+  background: #020508;
+  border: 1px solid var(--card-border);
+  border-radius: 0.75rem 0.75rem 0 0;
+  overflow: hidden;
+  min-height: 460px;
+}
+.dt-viewport-wrap canvas { display: none; width: 100%; height: 100%; }
+
+/* SVG placeholder scene */
+#dt-placeholder {
+  width: 100%;
+  display: block;
+  background: #020508;
+}
+
+/* Vignette overlay */
+.dt-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(2,5,8,0.6) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* HUD overlay */
+.dt-hud {
+  position: absolute;
+  inset: 0;
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 3;
+}
+.hud-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.hud-bottom { display: flex; justify-content: center; }
+.hud-badge {
+  background: rgba(2,5,8,0.75);
+  border: 1px solid rgba(5,181,212,0.3);
+  border-radius: 0.375rem;
+  padding: 0.3rem 0.75rem;
+  backdrop-filter: blur(8px);
+  display: flex; gap: 0.875rem; align-items: center; flex-wrap: wrap;
+}
+.hud-item {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  display: flex; gap: 0.35rem; align-items: center;
+}
+.hud-item span {
+  color: var(--accent-teal);
+  font-weight: 700;
+}
+.hud-elapsed-box {
+  background: rgba(2,5,8,0.75);
+  border: 1px solid rgba(5,181,212,0.3);
+  border-radius: 0.375rem;
+  padding: 0.3rem 0.75rem;
+  backdrop-filter: blur(8px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+}
+.cam-label-badge {
+  background: rgba(2,5,8,0.65);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--accent-purple);
+  letter-spacing: 0.1em;
+  backdrop-filter: blur(8px);
+}
+.hud-idle-msg {
+  background: rgba(2,5,8,0.8);
+  border: 1px solid rgba(5,181,212,0.2);
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+.dt-viewport-wrap.authorized .hud-idle-msg { display: none; }
+
+/* MOB overlay */
+.mob-overlay {
+  display: none;
+  position: absolute; inset: 0;
+  background: rgba(239,68,68,0.18);
+  z-index: 20;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  backdrop-filter: blur(4px);
+}
+.mob-alert-box {
+  background: rgba(10,5,5,0.92);
+  border: 2px solid var(--alert-red);
+  border-radius: 0.75rem;
+  padding: 2rem 3rem;
+  text-align: center;
+}
+.mob-alert-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--alert-red);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+}
+.mob-alert-countdown {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--alert-red);
+  line-height: 1;
+}
+.mob-alert-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+
+/* Control bar */
+.dt-control-bar {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-top: none;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.dt-ctrl-btn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 0.375rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.dt-ctrl-btn:hover:not(:disabled) { border-color: var(--text-muted); color: var(--text-primary); }
+.dt-ctrl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.dt-ctrl-btn.primary { background: var(--accent-purple); border-color: var(--accent-purple); color: #fff; }
+.dt-ctrl-btn.primary:hover:not(:disabled) { background: var(--accent-purple-hover); }
+.dt-ctrl-btn.authorized { background: rgba(16,185,129,0.15); border-color: var(--accent-green); color: var(--accent-green); }
+.dt-ctrl-btn.danger { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.4); color: var(--alert-red); }
+.dt-ctrl-btn.danger:hover:not(:disabled) { background: rgba(239,68,68,0.22); }
+.ctrl-divider { width: 1px; height: 24px; background: var(--card-border); flex-shrink: 0; }
+.dt-speed-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.dt-speed-btn {
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+.dt-speed-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.dt-speed-btn.active { background: rgba(124,58,237,0.2); border-color: var(--accent-purple); color: var(--accent-purple); }
+
+/* Narration panel */
+.dt-narration {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: none;
+  padding: 1.25rem 1.5rem;
+}
+.dt-narration h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent-teal);
+  margin-bottom: 0.4rem;
+}
+.dt-narration p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 800px;
+}
+
+/* Camera bar */
+.dt-cam-bar {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-top: none;
+  padding: 0.625rem 1.25rem;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cam-bar-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-right: 0.25rem;
+}
+.cam-btn {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+.cam-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.cam-btn.active { background: rgba(5,181,212,0.12); border-color: var(--accent-teal); color: var(--accent-teal); }
+
+/* Telemetry panel */
+.dt-telemetry {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-top: none;
+  padding: 1rem 1.25rem;
+}
+.tel-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+}
+@media (max-width: 767px) { .tel-grid { grid-template-columns: repeat(3, 1fr); } }
+.tel-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.tel-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.tel-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-data);
+}
+.tel-wide { grid-column: span 1; }
+.tel-section-divider {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: var(--card-border);
+  margin: 0.25rem 0;
+}
+
+/* Phase stepper */
+.dt-stepper {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-top: none;
+  border-radius: 0 0 0.75rem 0.75rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+}
+.dt-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  min-width: 70px;
+  cursor: default;
+}
+.dt-step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 2px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: all 0.3s;
+}
+.dt-step.active .dt-step-circle {
+  background: rgba(5,181,212,0.2);
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+  box-shadow: 0 0 0 4px rgba(5,181,212,0.1);
+}
+.dt-step.complete .dt-step-circle {
+  background: var(--accent-teal);
+  border-color: var(--accent-teal);
+  color: #000;
+}
+.dt-step.complete .dt-step-circle::after { content: '\2713'; }
+.dt-step.active .dt-step-circle::after,
+.dt-step .dt-step-circle::after { content: attr(data-num); }
+.dt-step-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-align: center;
+}
+.dt-step.active .dt-step-label { color: var(--accent-teal); }
+.dt-step.complete .dt-step-label { color: var(--accent-green); }
+.dt-step-connector {
+  flex: 1;
+  height: 1px;
+  background: var(--card-border);
+  min-width: 16px;
+  margin-top: -12px; /* Align with center of circles */
+}
+
+/* Completion summary */
+.dt-completion {
+  margin-top: 1.5rem;
+  background: rgba(16,185,129,0.06);
+  border: 1px solid var(--accent-green);
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.dt-completion h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 2rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 600px) { .summary-grid { grid-template-columns: 1fr; } }
+.summary-grid > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(16,185,129,0.15);
+  padding-bottom: 0.35rem;
+  gap: 1rem;
+}
+.summary-grid > div > span:first-child {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.summary-grid > div > span:last-child {
+  font-size: 0.82rem;
+  color: var(--text-data);
+  font-weight: 700;
+}
+.highlight-green { color: var(--accent-green) !important; }
+.highlight-teal  { color: var(--accent-teal)  !important; }
+.dt-comparison {
+  background: var(--bg-primary);
+  border: 1px solid var(--card-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.dt-comparison h4 {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+.compare-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 0.72rem;
+  gap: 1rem;
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-row > span:first-child { color: var(--text-muted); }
+.compare-row > span:last-child { color: var(--accent-teal); font-weight: 700; }
+
+/* Problem / Solution cards */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+@media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
+.problem-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 3px solid var(--alert-red);
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+}
+.problem-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--alert-red);
+  margin-bottom: 0.75rem;
+}
+.problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+
+.solution-intro {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--accent-teal);
+  border-radius: 0.75rem;
+  padding: 2rem 2.5rem;
+  margin-top: 3rem;
+}
+.solution-intro h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--headline);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.solution-intro p { color: var(--text-secondary); line-height: 1.7; }
+
+/* Digital Twin banner on platform page */
+.dt-banner {
+  background: linear-gradient(135deg, rgba(5,181,212,0.08) 0%, rgba(124,58,237,0.08) 100%);
+  border: 1px solid rgba(5,181,212,0.3);
+  border-radius: 0.75rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.dt-banner-text h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: var(--headline);
+  margin-bottom: 0.25rem;
+}
+.dt-banner-text p { font-size: 0.9rem; color: var(--text-secondary); }
+
+/* ── SVG Scene styles ─────────────────────────────────────────────────── */
+@keyframes water-ripple {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.water-wave { animation: water-ripple 3s ease-in-out infinite; }
+@keyframes dock-light-pulse {
+  0%,100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+.dock-light-glow { animation: dock-light-pulse 2.5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .water-wave, .dock-light-glow { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/index.html" class="nav-logo">FREQ AI</a>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="/platform.html" class="nav-link">Platform</a>
+      <a href="/digital-twin.html" class="nav-link">Digital Twin</a>
+      <a href="/solutions-barge-drafting.html" class="nav-link">Solutions</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="/team.html" class="nav-link">Team</a>
+      <a href="/contact.html" class="nav-link">Contact</a>
+      <a href="/contact.html" class="btn btn-primary nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <span class="eyebrow">3D Digital Twin</span>
+      <h1>See the Full Operation</h1>
+      <p>Watch the autonomous barge drafting process from first LiDAR scan to final certified report. Understand exactly why the inland waterway industry needs FREQ AI.</p>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">The Problem</span>
+      <h2>The Manual Process Today</h2>
+      <p class="section-body">Every day, thousands of barges on America's inland waterways undergo a manual cargo drafting process that hasn't changed in decades. Here's what that looks like in practice.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>4+ Hours Per Survey</h3>
+          <p>A crew physically walks onto the barge, reads draft marks painted on the hull with their eyes, and radios numbers to shore one at a time. Six measurement points, multiple readings each, weather delays, radio misreads, and manual calculation — every barge, every load.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Crew on Deck Means Risk</h3>
+          <p>Every person walking a barge deck during cargo operations is exposed to fall hazards, moving equipment, and unpredictable weather. Man-overboard incidents are a real and documented danger in inland waterway operations — the leading non-navigational fatality in the industry.</p>
+        </div>
+        <div class="problem-card">
+          <h3>1&#8211;3% Measurement Error</h3>
+          <p>Human visual readings from hull marks are inherently imprecise. Parallax error, wave action, reading conditions, and transcription mistakes compound at every step. A 1% error on a 2,000-ton barge is 20 tons of cargo uncertainty — real revenue lost or compliance exposure on every load.</p>
+        </div>
+      </div>
+
+      <!-- SOLUTION INTRO -->
+      <div class="solution-intro">
+        <h2>The FREQ AI Solution: 15 Minutes. Zero Crew. Sub-Inch.</h2>
+        <p>Ghost LiDAR scans the hull autonomously across all six measurement stations. The Sophisticated Operational Lattice monitors stability and displacement in real-time. A digital draft survey generates automatically, ready for immediate submission. Watch the complete operation in the simulation below.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- DIGITAL TWIN SIMULATION                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="section bg-secondary" id="dt-simulation">
+    <div class="container">
+      <span class="section-label">Interactive Digital Twin</span>
+      <h2>FREQ AI Autonomous Operation — BARGE-402</h2>
+      <p class="section-body" style="margin-bottom:2rem;">Press <strong style="color:var(--accent-purple);">AUTHORIZE DIGITAL TWIN</strong> to arm the system, then <strong style="color:var(--accent-teal);">INITIATE SEQUENCE</strong> to begin. All controls are operator-driven. Nothing moves until you authorize it.</p>
+
+      <!-- ── VIEWPORT ──────────────────────────────────────────────────────── -->
+      <div class="dt-viewport-wrap" id="dt-viewport">
+        <!-- Spline canvas (hidden until SPLINE_SCENE_URL is set) -->
+        <canvas id="canvas3d" aria-label="FREQ AI 3D barge drafting digital twin"></canvas>
+
+        <!-- SVG industrial placeholder scene -->
+        <svg id="dt-placeholder" viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg"
+             role="img" aria-label="Industrial port scene — FREQ AI digital twin placeholder">
+          <defs>
+            <radialGradient id="dockLightGrad1" cx="50%" cy="100%" r="60%">
+              <stop offset="0%" stop-color="#ffa040" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#ffa040" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="dockLightGrad2" cx="50%" cy="100%" r="60%">
+              <stop offset="0%" stop-color="#ffa040" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#ffa040" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#030508"/>
+              <stop offset="100%" stop-color="#0c1830"/>
+            </linearGradient>
+            <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#020c1e"/>
+              <stop offset="100%" stop-color="#010610"/>
+            </linearGradient>
+            <linearGradient id="hullGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#28292e"/>
+              <stop offset="100%" stop-color="#1a1b20"/>
+            </linearGradient>
+            <linearGradient id="dockGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#2a2520"/>
+              <stop offset="100%" stop-color="#332e28"/>
+            </linearGradient>
+            <clipPath id="hull-clip-dt">
+              <polygon points="238,274 232,350 952,350 946,274"/>
+            </clipPath>
+          </defs>
+
+          <!-- Sky -->
+          <rect width="1000" height="320" fill="url(#skyGrad)"/>
+
+          <!-- Stars (subtle) -->
+          <g fill="#ffffff" opacity="0.35">
+            <circle cx="320" cy="30" r="1"/><circle cx="450" cy="18" r="1"/>
+            <circle cx="600" cy="45" r="1.5"/><circle cx="720" cy="25" r="1"/>
+            <circle cx="820" cy="55" r="1"/><circle cx="870" cy="15" r="1.5"/>
+            <circle cx="950" cy="40" r="1"/><circle cx="280" cy="60" r="1"/>
+            <circle cx="380" cy="75" r="1"/><circle cx="700" cy="10" r="1"/>
+            <circle cx="560" cy="68" r="1.5"/><circle cx="420" cy="52" r="1"/>
+            <circle cx="790" cy="80" r="1"/><circle cx="920" cy="70" r="1"/>
+            <circle cx="650" cy="30" r="1"/><circle cx="480" cy="85" r="1"/>
+          </g>
+
+          <!-- Distant horizon / treeline silhouette -->
+          <path d="M0,240 Q100,220 200,235 Q350,210 420,228 Q500,215 600,230 Q700,218 800,232 Q900,222 1000,235 L1000,320 L0,320 Z"
+                fill="#0a0f18" opacity="0.8"/>
+
+          <!-- ── DOCK / WHARF ─────────────────────────────────────────────── -->
+          <!-- Dock body -->
+          <rect x="0" y="145" width="215" height="175" fill="url(#dockGrad)"/>
+          <!-- Dock surface (top) -->
+          <rect x="0" y="142" width="215" height="6" fill="#3d3830"/>
+          <!-- Dock texture lines (weathered concrete) -->
+          <line x1="0" y1="180" x2="215" y2="180" stroke="#2a2520" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="220" x2="215" y2="220" stroke="#2a2520" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="260" x2="215" y2="260" stroke="#2a2520" stroke-width="1" opacity="0.5"/>
+          <line x1="60" y1="142" x2="60" y2="320" stroke="#2a2520" stroke-width="1" opacity="0.4"/>
+          <line x1="140" y1="142" x2="140" y2="320" stroke="#2a2520" stroke-width="1" opacity="0.4"/>
+          <!-- Dock edge piling caps -->
+          <rect x="208" y="142" width="7" height="178" fill="#1e1a16"/>
+
+          <!-- Dock light warmth pools -->
+          <ellipse cx="40" cy="142" rx="35" ry="50" fill="url(#dockLightGrad1)" class="dock-light-glow"/>
+          <ellipse cx="130" cy="142" rx="35" ry="50" fill="url(#dockLightGrad2)" class="dock-light-glow"/>
+
+          <!-- ── CRANE ────────────────────────────────────────────────────── -->
+          <!-- Crane base/foundation -->
+          <rect x="78" y="280" width="54" height="40" fill="#2a2f3a"/>
+          <!-- Crane tower -->
+          <rect x="90" y="35" width="26" height="248" fill="#2e3340"/>
+          <!-- Tower cross-bracing -->
+          <line x1="90" y1="80" x2="116" y2="130" stroke="#1e2230" stroke-width="2"/>
+          <line x1="116" y1="80" x2="90" y2="130" stroke="#1e2230" stroke-width="2"/>
+          <line x1="90" y1="130" x2="116" y2="180" stroke="#1e2230" stroke-width="2"/>
+          <line x1="116" y1="130" x2="90" y2="180" stroke="#1e2230" stroke-width="2"/>
+          <line x1="90" y1="180" x2="116" y2="230" stroke="#1e2230" stroke-width="2"/>
+          <line x1="116" y1="180" x2="90" y2="230" stroke="#1e2230" stroke-width="2"/>
+          <!-- Crane boom (extends over barge hold) -->
+          <polygon points="103,55 116,55 590,88 590,96 103,68" fill="#3a4050"/>
+          <!-- Boom cross-cable -->
+          <line x1="103" y1="55" x2="590" y2="88" stroke="#4a5060" stroke-width="1.5" opacity="0.7"/>
+          <!-- Crane tip -->
+          <circle id="crane-tip-dt" cx="590" cy="92" r="7" fill="#ffa040" opacity="0.7"/>
+          <!-- Dock lights (mounted on tower) -->
+          <circle cx="40" cy="140" r="5" fill="#ffa040" opacity="0.9" class="dock-light-glow"/>
+          <circle cx="130" cy="140" r="5" fill="#ffa040" opacity="0.9" class="dock-light-glow"/>
+          <!-- Crane operator cab -->
+          <rect x="88" y="48" width="30" height="20" fill="#252932" rx="2"/>
+
+          <!-- ── MATERIAL STREAM (hidden by default, Phase 4) ─────────────── -->
+          <rect id="material-stream-dt" x="583" y="92" width="14" height="226"
+                fill="#7a6545" opacity="0.75" rx="2" style="display:none"/>
+
+          <!-- ── WATER ───────────────────────────────────────────────────── -->
+          <!-- Water base -->
+          <rect x="0" y="320" width="1000" height="130" fill="url(#waterGrad)"/>
+          <!-- Wave lines -->
+          <g class="water-wave" opacity="0.4">
+            <path d="M215,330 Q350,325 490,332 Q630,327 770,333 Q870,328 1000,334" fill="none" stroke="#06B6D4" stroke-width="1"/>
+            <path d="M215,345 Q300,340 450,347 Q600,342 750,348 Q880,343 1000,349" fill="none" stroke="#020c1e" stroke-width="1" opacity="0.8"/>
+          </g>
+          <!-- Water reflection of barge -->
+          <polygon points="238,324 232,360 952,360 946,324"
+                   fill="#06B6D4" opacity="0.03"/>
+
+          <!-- ── BARGE ────────────────────────────────────────────────────── -->
+          <!-- Below-waterline hull (dark) -->
+          <polygon points="232,320 238,274 952,274 958,320 952,350 238,350"
+                   fill="url(#hullGrad)" stroke="#3a4050" stroke-width="1.5"/>
+          <!-- Hull waterline band -->
+          <polygon points="232,318 238,274 952,274 958,318"
+                   fill="#22232a" stroke="#3a4050" stroke-width="1"/>
+          <!-- Deck surface (on top) -->
+          <rect x="238" y="270" width="714" height="5" fill="#2f3040"/>
+          <!-- Deck edge markings -->
+          <line x1="238" y1="270" x2="952" y2="270" stroke="#4a5060" stroke-width="1" opacity="0.6"/>
+          <!-- Hull rivets / detail lines -->
+          <line x1="238" y1="300" x2="952" y2="300" stroke="#2a2b35" stroke-width="1" opacity="0.7"/>
+          <line x1="238" y1="310" x2="952" y2="310" stroke="#2a2b35" stroke-width="1" opacity="0.5"/>
+          <!-- Hull reinforcement bands -->
+          <rect x="238" y="274" width="3" height="76" fill="#3a4050"/>
+          <rect x="949" y="274" width="3" height="76" fill="#3a4050"/>
+          <rect x="420" y="274" width="2" height="76" fill="#2a2f3a" opacity="0.6"/>
+          <rect x="590" y="274" width="2" height="76" fill="#2a2f3a" opacity="0.6"/>
+          <rect x="760" y="274" width="2" height="76" fill="#2a2f3a" opacity="0.6"/>
+
+          <!-- Barge hold (open top, visible from above) -->
+          <rect x="260" y="274" width="680" height="44" fill="#0d0f18" stroke="#1e2030" stroke-width="1"/>
+          <!-- Hold interior detail -->
+          <line x1="260" y1="295" x2="940" y2="295" stroke="#12141c" stroke-width="1"/>
+          <line x1="430" y1="274" x2="430" y2="318" stroke="#12141c" stroke-width="1"/>
+          <line x1="600" y1="274" x2="600" y2="318" stroke="#12141c" stroke-width="1"/>
+          <line x1="770" y1="274" x2="770" y2="318" stroke="#12141c" stroke-width="1"/>
+
+          <!-- Cargo fill (grows during Phase 4) -->
+          <rect id="cargo-fill-dt" x="262" y="318" width="676" height="0"
+                fill="#7a6848" rx="1" clip-path="url(#hull-clip-dt)"/>
+
+          <!-- Waterline marker (dynamic) -->
+          <line id="wl-dt" x1="230" y1="320" x2="960" y2="320"
+                stroke="#06B6D4" stroke-width="2"/>
+          <text id="wl-dt-label" x="218" y="316" fill="#06B6D4"
+                font-size="8" font-family="JetBrains Mono,monospace"
+                text-anchor="end">WL: 10.20 ft</text>
+
+          <!-- ── SCAN BEAM (hidden by default) ──────────────────────────── -->
+          <rect id="scan-beam-dt" x="258" y="316" width="22" height="6"
+                fill="#05b5d4" opacity="0.85" rx="1" style="display:none"/>
+
+          <!-- ── MEASUREMENT STATIONS ───────────────────────────────────── -->
+          <!-- FP - Fore Port -->
+          <circle id="st-fp" cx="305" cy="320" r="4" fill="#05b5d4" opacity="0.6"/>
+          <text x="305" y="265" fill="#05b5d4" font-size="7"
+                font-family="JetBrains Mono,monospace" text-anchor="middle" opacity="0.8">FP</text>
+          <!-- FS - Fore Starboard -->
+          <circle id="st-fs" cx="340" cy="320" r="4" fill="#05b5d4" opacity="0.6"/>
+          <text x="340" y="256" fill="#05b5d4" font-size="7"
+                font-family="JetBrains Mono,monospace" text-anchor="middle" opacity="0.8">FS</text>
+          <!-- MP - Mid Port -->
+          <circle id="st-mp" cx="545" cy="320" r="4" fill="#05b5d4" opacity="0.6"/>
+          <text x="545" y="265" fill="#05b5d4" font-size="7"
+                font-family="JetBrains Mono,monospace" text-anchor="middle" opacity="0.8">MP</text>
+          <!-- MS - Mid Starboard -->
+          <circle id="st-ms" cx="580" cy="320" r="4" fill="#05b5d4" opacity="0.6"/>
+          <text x="580" y="256" fill="#05b5d4" font-size="7"
+                font-family="JetBrains Mono,monospace" text-anchor="middle" opacity="0.8">MS</text>
+          <!-- AP - Aft Port -->
+          <circle id="st-ap" cx="760" cy="320" r="4" fill="#05b5d4" opacity="0.6"/>
+          <text x="760" y="265" fill="#05b5d4" font-size="7"
+                font-family="JetBrains Mono,monospace" text-anchor="middle" opacity="0.8">AP</text>
+          <!-- AS - Aft Starboard -->
+          <circle id="st-as" cx="795" cy="320" r="4" fill="#05b5d4" opacity="0.6"/>
+          <text x="795" y="256" fill="#05b5d4" font-size="7"
+                font-family="JetBrains Mono,monospace" text-anchor="middle" opacity="0.8">AS</text>
+
+          <!-- Scene label -->
+          <text x="580" y="430" fill="#1E293B" font-size="9"
+                font-family="IBM Plex Mono,monospace" text-anchor="middle"
+                letter-spacing="2">BARGE-402 &#8212; AGGREGATE TERMINAL &#8212; 23:14 LOCAL</text>
+        </svg>
+
+        <!-- MOB Overlay -->
+        <div class="mob-overlay" id="mob-overlay" role="alert" aria-live="assertive">
+          <div class="mob-alert-box">
+            <div class="mob-alert-title">&#9888; MAN OVERBOARD &#8212; EMERGENCY STOP</div>
+            <div class="mob-alert-title" style="font-size:0.72rem; margin-bottom:1rem;">ALL CRANE AND LOADING OPERATIONS HALTED</div>
+            <div class="mob-alert-countdown" id="mob-countdown">10</div>
+            <div class="mob-alert-sub">SECONDS TO ALL-CLEAR &#8212; MOB RECOVERY PROTOCOL ACTIVE</div>
+          </div>
+        </div>
+
+        <!-- HUD Overlay -->
+        <div class="dt-hud" aria-hidden="true">
+          <div class="hud-top">
+            <div class="hud-badge">
+              <div class="hud-item">PHASE: <span id="hud-phase">IDLE</span></div>
+              <div class="hud-item">SCAN: <span id="hud-scan">LOCKED</span></div>
+              <div class="hud-item">VESSEL: <span>BARGE-402</span></div>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <div class="cam-label-badge">CAM: <span id="cam-label">ORBIT</span></div>
+              <div class="hud-elapsed-box" id="hud-elapsed">00:00</div>
+            </div>
+          </div>
+          <div class="hud-bottom">
+            <div class="hud-idle-msg">SYSTEM IDLE &#8212; AUTHORIZE TO ARM THE DIGITAL TWIN</div>
+          </div>
+        </div>
+
+        <!-- Vignette -->
+        <div class="dt-vignette" aria-hidden="true"></div>
+      </div>
+
+      <!-- ── CONTROL BAR ──────────────────────────────────────────────────── -->
+      <div class="dt-control-bar">
+        <button id="btn-authorize" class="dt-ctrl-btn primary" aria-label="Authorize digital twin system">AUTHORIZE DIGITAL TWIN</button>
+        <button id="btn-initiate"  class="dt-ctrl-btn" disabled aria-label="Initiate autonomous sequence">INITIATE SEQUENCE</button>
+        <button id="btn-pause"     class="dt-ctrl-btn" disabled aria-label="Pause simulation">PAUSE</button>
+        <button id="btn-resume"    class="dt-ctrl-btn" disabled aria-label="Resume simulation">RESUME</button>
+        <button id="btn-reset"     class="dt-ctrl-btn" disabled aria-label="Reset simulation">RESET</button>
+        <div class="ctrl-divider" aria-hidden="true"></div>
+        <button id="btn-mob" class="dt-ctrl-btn danger" disabled aria-label="Trigger man overboard safety event">&#9888; TRIGGER MOB</button>
+        <div class="ctrl-divider" aria-hidden="true"></div>
+        <span class="dt-speed-label">Speed:</span>
+        <button class="dt-speed-btn active" data-speed="1" aria-label="1x speed">1&times;</button>
+        <button class="dt-speed-btn" data-speed="2" aria-label="2x speed">2&times;</button>
+        <button class="dt-speed-btn" data-speed="4" aria-label="4x speed">4&times;</button>
+      </div>
+
+      <!-- ── NARRATION PANEL ──────────────────────────────────────────────── -->
+      <div class="dt-narration">
+        <h3 id="narration-title">Awaiting Authorization</h3>
+        <p id="narration-desc">Authorize the system to arm the digital twin. The Ghost LiDAR system will survey the hull, the SOL will generate a precision load plan, and the autonomous loading sequence will execute through all 6 phases.</p>
+      </div>
+
+      <!-- ── CAMERA BAR ───────────────────────────────────────────────────── -->
+      <div class="dt-cam-bar">
+        <span class="cam-bar-label">Camera View:</span>
+        <button class="cam-btn active" data-view="orbit"    aria-label="Orbit camera view">Orbit</button>
+        <button class="cam-btn"        data-view="overhead" aria-label="Overhead camera view">Overhead</button>
+        <button class="cam-btn"        data-view="side"     aria-label="Side camera view">Side Profile</button>
+        <button class="cam-btn"        data-view="fore"     aria-label="Fore camera view">Fore</button>
+        <button class="cam-btn"        data-view="aft"      aria-label="Aft camera view">Aft</button>
+        <button class="cam-btn"        data-view="deck"     aria-label="Deck level camera view">Deck Level</button>
+      </div>
+
+      <!-- ── TELEMETRY PANEL ──────────────────────────────────────────────── -->
+      <div class="dt-telemetry">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.75rem;">Live Telemetry &#8212; BARGE-402</div>
+        <div class="tel-grid">
+          <!-- Draft stations -->
+          <div class="tel-item">
+            <span class="tel-label">Fore Port (FP)</span>
+            <span class="tel-val" id="tel-fp">&ndash;</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Fore Stbd (FS)</span>
+            <span class="tel-val" id="tel-fs">&ndash;</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Mid Port (MP)</span>
+            <span class="tel-val" id="tel-mp">&ndash;</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Mid Stbd (MS)</span>
+            <span class="tel-val" id="tel-ms">&ndash;</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Aft Port (AP)</span>
+            <span class="tel-val" id="tel-ap">&ndash;</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Aft Stbd (AS)</span>
+            <span class="tel-val" id="tel-as">&ndash;</span>
+          </div>
+          <!-- Stability metrics -->
+          <div class="tel-section-divider"></div>
+          <div class="tel-item">
+            <span class="tel-label">Trim</span>
+            <span class="tel-val" id="tel-trim">0.00 ft</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Heel</span>
+            <span class="tel-val" id="tel-heel">0.00&#176;</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">Cargo Mass</span>
+            <span class="tel-val" id="tel-cargo">0 t</span>
+          </div>
+          <div class="tel-item">
+            <span class="tel-label">GM Height</span>
+            <span class="tel-val" id="tel-gm">4.85 ft</span>
+          </div>
+          <div class="tel-item" style="grid-column:span 2;">
+            <span class="tel-label">Status</span>
+            <span class="tel-val" style="color:var(--text-muted); font-size:0.72rem; font-family:'IBM Plex Mono',monospace;" id="hud-scan-tel">SYSTEM LOCKED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE STEPPER ─────────────────────────────────────────────────── -->
+      <div class="dt-stepper">
+        <div class="dt-step active" id="step-1">
+          <div class="dt-step-circle" data-num="1">1</div>
+          <span class="dt-step-label">Survey</span>
+        </div>
+        <div class="dt-step-connector"></div>
+        <div class="dt-step" id="step-2">
+          <div class="dt-step-circle" data-num="2">2</div>
+          <span class="dt-step-label">Ballast</span>
+        </div>
+        <div class="dt-step-connector"></div>
+        <div class="dt-step" id="step-3">
+          <div class="dt-step-circle" data-num="3">3</div>
+          <span class="dt-step-label">Crane</span>
+        </div>
+        <div class="dt-step-connector"></div>
+        <div class="dt-step" id="step-4">
+          <div class="dt-step-circle" data-num="4">4</div>
+          <span class="dt-step-label">Loading</span>
+        </div>
+        <div class="dt-step-connector"></div>
+        <div class="dt-step" id="step-5">
+          <div class="dt-step-circle" data-num="5">5</div>
+          <span class="dt-step-label">Trim</span>
+        </div>
+        <div class="dt-step-connector"></div>
+        <div class="dt-step" id="step-6">
+          <div class="dt-step-circle" data-num="6">6</div>
+          <span class="dt-step-label">Final</span>
+        </div>
+      </div>
+
+      <!-- ── COMPLETION SUMMARY ────────────────────────────────────────────── -->
+      <div class="dt-completion" id="completion-summary" role="status" style="display:none">
+        <h3>Survey Complete &#8212; BARGE-402</h3>
+        <div class="summary-grid">
+          <div><span>Total Operation Time</span><span id="sum-time">&ndash;</span></div>
+          <div><span>Final Avg Draft</span><span id="sum-draft">12.45 ft</span></div>
+          <div><span>Trim / Heel</span><span id="sum-trim">0.00 ft / 0.00&#176;</span></div>
+          <div><span>Measurement Accuracy</span><span>&#177; 0.02 ft (sub-inch)</span></div>
+          <div><span>Crew Deck Exposure</span><span class="highlight-green">ZERO</span></div>
+          <div><span>Report Status</span><span class="highlight-teal">GENERATED &amp; LOGGED</span></div>
+        </div>
+        <div class="dt-comparison">
+          <h4>vs. Manual Process</h4>
+          <div class="compare-row">
+            <span>Manual: 4 hours 14 minutes typical</span>
+            <span>FREQ AI: <span id="sum-freq-time">&ndash;</span></span>
+          </div>
+          <div class="compare-row">
+            <span>Manual error: 1&#8211;3% of total cargo</span>
+            <span>FREQ AI: &#177; 0.02 ft (sub-inch)</span>
+          </div>
+          <div class="compare-row">
+            <span>Manual: 2&#8211;4 crew on exposed deck</span>
+            <span>FREQ AI: Zero crew deck exposure</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container cta-inner">
+      <h2>Ready to see what FREQ AI can do for your operation?</h2>
+      <p class="section-body">Connect with our team to discuss how autonomous barge drafting transforms your cargo operations.</p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+        <a href="/contact.html" class="btn btn-primary">Contact Us</a>
+        <a href="/platform.html" class="btn btn-secondary">Platform Overview</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="footer-logo">FREQ AI</span>
+        <p class="footer-tagline">Autonomous Maritime Intelligence</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Product</span>
+        <a href="/platform.html" class="footer-link">Platform</a>
+        <a href="/digital-twin.html" class="footer-link">Digital Twin</a>
+        <a href="/solutions-barge-drafting.html" class="footer-link">Barge Drafting</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Company</span>
+        <a href="/about.html" class="footer-link">About</a>
+        <a href="/team.html" class="footer-link">Team</a>
+        <a href="/contact.html" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Connect</span>
+        <a href="mailto:info@freqai.io" class="footer-link">info@freqai.io</a>
+        <a href="https://linkedin.com/in/andry-alvarez" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-link">Slidell, Louisiana</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FREQ AI. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/main.js"></script>
+<script src="/spline-controller.js"></script>
+</body>
+</html>
