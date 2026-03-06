@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#080C18"/>
+  <!-- Blueprint grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E293B" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+  <!-- Purple accent line -->
+  <line x1="200" y1="270" x2="1000" y2="270" stroke="#7C3AED" stroke-width="2"/>
+  <!-- FREQ AI -->
+  <text x="600" y="340" font-family="Georgia,serif" font-size="80" font-weight="700" fill="#FFFFFF" text-anchor="middle">FREQ AI</text>
+  <!-- Tagline -->
+  <text x="600" y="400" font-family="Arial,sans-serif" font-size="28" fill="#94A3B8" text-anchor="middle">Autonomous Maritime Intelligence</text>
+  <!-- Bottom stat -->
+  <text x="600" y="480" font-family="monospace" font-size="18" fill="#06B6D4" text-anchor="middle">4 Hours → 15 Minutes | Zero Crew Exposure | Sub-Inch Accuracy</text>
+</svg>

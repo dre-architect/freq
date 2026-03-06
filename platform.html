@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform | FREQ AI</title>
+<meta name="description" content="FREQ AI's hardware-agnostic intelligence platform for autonomous maritime cargo operations. See the live simulation.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Platform | FREQ AI">
+<meta property="og:description" content="FREQ AI's hardware-agnostic intelligence platform for autonomous maritime cargo operations. See the live simulation.">
+<meta property="og:image" content="/og-image.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/index.html" class="nav-logo">FREQ AI</a>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="/platform.html" class="nav-link">Platform</a>
+      <a href="/solutions-barge-drafting.html" class="nav-link">Solutions</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="/team.html" class="nav-link">Team</a>
+      <a href="/contact.html" class="nav-link">Contact</a>
+      <a href="/contact.html" class="btn btn-primary nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <span class="eyebrow">Intelligence Platform</span>
+      <h1>The Intelligence Layer for Maritime Cargo Operations</h1>
+      <p>FREQ AI's platform sits between your existing hardware and your operational decisions — transforming raw sensor data into actionable cargo intelligence.</p>
+    </div>
+  </section>
+
+  <!-- PLATFORM OVERVIEW -->
+  <section class="section bg-secondary">
+    <div class="container">
+      <span class="section-label">Overview</span>
+      <h2>Hardware-Agnostic by Design</h2>
+      <p class="section-body">Our platform is hardware-agnostic by design. Whether your operation uses radar, LiDAR, pressure sensors, or visual monitoring, FREQ AI's intelligence layer normalizes data from any source into a unified operational picture. The result: autonomous drafting, real-time monitoring, and verified compliance reporting — regardless of what hardware generates the input.</p>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Capabilities</span>
+      <h2>What the Platform Delivers</h2>
+      <div class="six-col">
+        <div class="cap-card">
+          <h3>Autonomous Measurement</h3>
+          <p>Precision cargo draft readings acquired without manual intervention. Sub-inch accuracy across all measurement points.</p>
+        </div>
+        <div class="cap-card">
+          <h3>Real-Time Monitoring</h3>
+          <p>Continuous visibility into cargo status, vessel stability, and operational progress. Live data available to all stakeholders.</p>
+        </div>
+        <div class="cap-card">
+          <h3>Safety Governance</h3>
+          <p>Integrated hazard detection with automatic operational safeguards. Man-overboard risk eliminated from the drafting process.</p>
+        </div>
+        <div class="cap-card">
+          <h3>Compliance &amp; Reporting</h3>
+          <p>Automated generation of draft surveys, cargo manifests, and regulatory documentation. Complete audit trail for every operation.</p>
+        </div>
+        <div class="cap-card">
+          <h3>Hardware Agnostic</h3>
+          <p>Works with any sensor input — radar, LiDAR, pressure, drone, or visual. Your hardware, our intelligence.</p>
+        </div>
+        <div class="cap-card">
+          <h3>Fleet Scale</h3>
+          <p>Designed for single-vessel operations or enterprise fleet management. Intelligence that scales with your operation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- INTERACTIVE SIMULATION                                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="section bg-secondary" id="simulation">
+    <div class="container">
+      <span class="section-label">Interactive Simulation</span>
+      <h2 class="sim-heading">See the Difference — Side by Side</h2>
+      <p class="sim-sub">Press <strong style="color:var(--accent-purple);">INITIATE SEQUENCE</strong> to start. Compare the manual process against FREQ AI's autonomous sequence in real-time. Use PAUSE, RESUME, and RESET at any time.</p>
+
+      <!-- ── CONTROL BAR ──────────────────────────────────────────────────── -->
+      <div class="sim-control-bar">
+        <div class="sim-ctrl-left">
+          <span class="sim-title-label">FREQ AI SOL &middot; BARGE DRAFTING SIMULATION</span>
+          <div class="sim-status-row">
+            <span class="status-dot dot-gray" id="sim-status-dot" aria-hidden="true"></span>
+            <span class="status-label" id="sim-status-label">SYSTEM READY</span>
+          </div>
+        </div>
+        <div class="sim-ctrl-center">
+          <button class="sim-btn sim-btn-primary" id="sim-start" aria-label="Initiate simulation sequence">&#9654; INITIATE SEQUENCE</button>
+          <button class="sim-btn sim-btn-amber" id="sim-pause" style="display:none" aria-label="Pause simulation">&#9208; PAUSE</button>
+          <button class="sim-btn sim-btn-outline" id="sim-reset" disabled aria-label="Reset simulation">&#8634; RESET</button>
+          <button class="sim-btn sim-btn-red" id="mob-trigger" aria-label="Trigger man-overboard safety event">&#9888; MOB EVENT</button>
+        </div>
+        <div class="sim-ctrl-right">
+          <span class="ctrl-label">View:</span>
+          <button class="sim-toggle active" id="view-schematic" aria-label="Switch to schematic view">SCHEMATIC</button>
+          <button class="sim-toggle" id="view-telemetry" aria-label="Switch to telemetry view">TELEMETRY</button>
+          <span class="ctrl-label">Speed:</span>
+          <button class="speed-btn active" id="speed-1" aria-label="1x speed">1&times;</button>
+          <button class="speed-btn" id="speed-2" aria-label="2x speed">2&times;</button>
+          <button class="speed-btn" id="speed-4" aria-label="4x speed">4&times;</button>
+        </div>
+      </div>
+
+      <!-- ── MOB BANNER ──────────────────────────────────────────────────── -->
+      <div class="mob-banner" id="mob-banner" role="alert" style="display:none">
+        <span class="mob-text">&#9888; EMERGENCY STOP &#8212; MAN OVERBOARD DETECTED &#8212; ALL OPERATIONS HALTED</span>
+        <button class="sim-btn sim-btn-outline" id="mob-reset" aria-label="Reset safety event and resume from paused state">RESET SAFETY EVENT</button>
+      </div>
+
+      <!-- ── SPLIT PANELS ─────────────────────────────────────────────────── -->
+      <div class="sim-panels">
+
+        <!-- LEFT PANEL: MANUAL PROCESS -->
+        <div class="sim-panel panel-manual">
+          <div class="panel-header">
+            <span class="panel-tag amber-tag">CURRENT INDUSTRY STANDARD</span>
+            <span class="panel-title amber-title">MANUAL PROCESS</span>
+          </div>
+          <div class="panel-body">
+            <!-- Step indicator -->
+            <div class="left-step-indicator">
+              <span id="left-step-num">STEP 1 OF 7</span>
+              <div class="left-dots" id="left-dots" aria-hidden="true">
+                <span class="left-dot active"></span>
+                <span class="left-dot"></span>
+                <span class="left-dot"></span>
+                <span class="left-dot"></span>
+                <span class="left-dot"></span>
+                <span class="left-dot"></span>
+                <span class="left-dot"></span>
+              </div>
+            </div>
+            <!-- Step content -->
+            <h4 class="left-step-title" id="left-step-title">STEP 1: CREW DEPLOYMENT</h4>
+            <p class="left-step-text" id="left-step-text">A crew member is dispatched to the barge deck. No safety harness required by standard procedure. Active crane and loading equipment present in the operational zone.</p>
+            <div class="left-annotation" id="left-annotation" role="note">Man-overboard risk active &#8212; no automated safeguard</div>
+
+            <!-- Barge schematic (static, manual side) -->
+            <div class="left-schematic">
+              <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Manual barge drafting schematic showing crew on deck">
+                <!-- Hull -->
+                <polygon points="20,22 580,22 570,168 30,168" fill="none" stroke="#F1F5F9" stroke-width="1.5" opacity="0.5"/>
+                <!-- Zone dividers -->
+                <line x1="200" y1="22" x2="200" y2="168" stroke="#1E293B" stroke-width="1" stroke-dasharray="4,4"/>
+                <line x1="400" y1="22" x2="400" y2="168" stroke="#1E293B" stroke-width="1" stroke-dasharray="4,4"/>
+                <!-- Waterline (static, amber = problem indicator) -->
+                <line x1="30" y1="132" x2="570" y2="132" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.7"/>
+                <text x="10" y="130" fill="#F59E0B" font-size="7" font-family="JetBrains Mono,monospace">WL</text>
+                <!-- Draft marks on hull (painted marks) -->
+                <line x1="180" y1="122" x2="196" y2="122" stroke="#94A3B8" stroke-width="1" opacity="0.5"/>
+                <line x1="180" y1="132" x2="196" y2="132" stroke="#94A3B8" stroke-width="1" opacity="0.5"/>
+                <line x1="180" y1="142" x2="196" y2="142" stroke="#94A3B8" stroke-width="1" opacity="0.5"/>
+                <text x="165" y="125" fill="#64748B" font-size="6" font-family="JetBrains Mono,monospace">3'6"</text>
+                <text x="165" y="135" fill="#64748B" font-size="6" font-family="JetBrains Mono,monospace">3'3"</text>
+                <text x="165" y="145" fill="#64748B" font-size="6" font-family="JetBrains Mono,monospace">3'0"</text>
+                <!-- Crew figure (stick figure, red = hazard) -->
+                <circle cx="110" cy="16" r="4" fill="#EF4444" opacity="0.85"/>
+                <line x1="110" y1="20" x2="110" y2="32" stroke="#EF4444" stroke-width="1.5"/>
+                <line x1="104" y1="25" x2="116" y2="25" stroke="#EF4444" stroke-width="1.5"/>
+                <line x1="110" y1="32" x2="106" y2="42" stroke="#EF4444" stroke-width="1.5"/>
+                <line x1="110" y1="32" x2="114" y2="42" stroke="#EF4444" stroke-width="1.5"/>
+                <!-- Pulsing hazard indicator -->
+                <circle cx="110" cy="16" r="8" fill="none" stroke="#EF4444" stroke-width="1" opacity="0.4">
+                  <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Radio relay indicator -->
+                <text x="125" y="22" fill="#F59E0B" font-size="6" font-family="IBM Plex Mono,monospace">RADIO &#8250;</text>
+                <!-- Zone labels -->
+                <text x="100" y="188" fill="#64748B" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">FORE</text>
+                <text x="300" y="188" fill="#64748B" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">MIDSHIP</text>
+                <text x="480" y="188" fill="#64748B" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">AFT</text>
+                <!-- Error annotation -->
+                <text x="300" y="155" fill="#EF4444" font-size="7" font-family="IBM Plex Mono,monospace" text-anchor="middle" opacity="0.8">&#177; 0.5" VISUAL ERROR</text>
+              </svg>
+            </div>
+
+            <!-- Manual controls -->
+            <div class="left-controls">
+              <button class="sim-btn sim-btn-outline" id="left-prev" disabled aria-label="Previous manual process step">&#8592; PREV</button>
+              <button class="sim-btn sim-btn-outline" id="left-next" aria-label="Next manual process step">NEXT &#8594;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: FREQ AI AUTONOMOUS -->
+        <div class="sim-panel panel-freq">
+          <!-- Corner bracket accents -->
+          <div class="corner-bracket br-tl" aria-hidden="true"></div>
+          <div class="corner-bracket br-tr" aria-hidden="true"></div>
+          <div class="corner-bracket br-bl" aria-hidden="true"></div>
+          <div class="corner-bracket br-br" aria-hidden="true"></div>
+
+          <div class="panel-header">
+            <span class="panel-tag teal-tag">INTELLIGENT AUTOMATION</span>
+            <span class="panel-title teal-title">FREQ AI AUTONOMOUS SEQUENCE</span>
+          </div>
+          <div class="panel-body">
+
+            <!-- ── SCHEMATIC VIEW (default) ────────────────────────────── -->
+            <div id="schematic-view">
+              <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" id="barge-svg" role="img" aria-label="FREQ AI live barge drafting schematic with dynamic measurements">
+                <defs>
+                  <clipPath id="hull-clip">
+                    <polygon points="22,22 578,22 568,168 32,168"/>
+                  </clipPath>
+                </defs>
+
+                <!-- Cargo fill (rises as draft increases, clipped to hull) -->
+                <rect id="cargo-fill" x="22" y="132" width="556" height="36"
+                      fill="#06B6D4" opacity="0.12" clip-path="url(#hull-clip)"/>
+
+                <!-- Hull outline -->
+                <polygon points="20,22 580,22 570,168 30,168"
+                         fill="none" stroke="#F1F5F9" stroke-width="1.5"/>
+
+                <!-- Zone dividers -->
+                <line x1="200" y1="22" x2="200" y2="168" stroke="#1E293B" stroke-width="1" stroke-dasharray="4,4"/>
+                <line x1="400" y1="22" x2="400" y2="168" stroke="#1E293B" stroke-width="1" stroke-dasharray="4,4"/>
+
+                <!-- Waterline (dynamic — updated by simulation.js) -->
+                <line id="barge-waterline" x1="22" y1="132" x2="578" y2="132"
+                      stroke="#06B6D4" stroke-width="2"/>
+
+                <!-- Waterline label -->
+                <text id="wl-label" x="300" y="128" fill="#06B6D4"
+                      font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">WL: 3.20 ft AVG</text>
+
+                <!-- Draft dimension arrows (fore/mid/aft) -->
+                <line id="draft-arr-fore" x1="62" y1="132" x2="62" y2="166"
+                      stroke="#06B6D4" stroke-width="1" stroke-dasharray="2,2"/>
+                <line id="draft-arr-mid"  x1="300" y1="132" x2="300" y2="166"
+                      stroke="#06B6D4" stroke-width="1" stroke-dasharray="2,2"/>
+                <line id="draft-arr-aft"  x1="538" y1="132" x2="538" y2="166"
+                      stroke="#06B6D4" stroke-width="1" stroke-dasharray="2,2"/>
+
+                <!-- Zone labels -->
+                <text x="100" y="188" fill="#64748B" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">FORE</text>
+                <text x="300" y="188" fill="#64748B" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">MIDSHIP</text>
+                <text x="480" y="188" fill="#64748B" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">AFT</text>
+
+                <!-- ── Station markers: crosshairs at waterline ────────── -->
+
+                <!-- FORE PORT (FP) — x=98 -->
+                <g id="station-marker-fp">
+                  <line id="sg-fp-vt" x1="98" y1="128" x2="98" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-fp-vb" x1="98" y1="132" x2="98" y2="136" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-fp-hl" x1="94" y1="132" x2="98" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-fp-hr" x1="98" y1="132" x2="102" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <text id="sg-fp-val" x="98" y="118" fill="#06B6D4" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">FP | 3.20 ft | NOM</text>
+                </g>
+
+                <!-- FORE STARBOARD (FS) — x=132 -->
+                <g id="station-marker-fs">
+                  <line id="sg-fs-vt" x1="132" y1="128" x2="132" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-fs-vb" x1="132" y1="132" x2="132" y2="136" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-fs-hl" x1="128" y1="132" x2="132" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-fs-hr" x1="132" y1="132" x2="136" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <text id="sg-fs-val" x="132" y="106" fill="#06B6D4" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">FS | 3.18 ft | NOM</text>
+                </g>
+
+                <!-- MID PORT (MP) — x=272 -->
+                <g id="station-marker-mp">
+                  <line id="sg-mp-vt" x1="272" y1="128" x2="272" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-mp-vb" x1="272" y1="132" x2="272" y2="136" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-mp-hl" x1="268" y1="132" x2="272" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-mp-hr" x1="272" y1="132" x2="276" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <text id="sg-mp-val" x="272" y="118" fill="#06B6D4" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">MP | 3.25 ft | NOM</text>
+                </g>
+
+                <!-- MID STARBOARD (MS) — x=320 -->
+                <g id="station-marker-ms">
+                  <line id="sg-ms-vt" x1="320" y1="128" x2="320" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-ms-vb" x1="320" y1="132" x2="320" y2="136" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-ms-hl" x1="316" y1="132" x2="320" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-ms-hr" x1="320" y1="132" x2="324" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <text id="sg-ms-val" x="320" y="106" fill="#06B6D4" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">MS | 3.23 ft | NOM</text>
+                </g>
+
+                <!-- AFT PORT (AP) — x=455 -->
+                <g id="station-marker-ap">
+                  <line id="sg-ap-vt" x1="455" y1="128" x2="455" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-ap-vb" x1="455" y1="132" x2="455" y2="136" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-ap-hl" x1="451" y1="132" x2="455" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-ap-hr" x1="455" y1="132" x2="459" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <text id="sg-ap-val" x="455" y="118" fill="#06B6D4" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">AP | 3.15 ft | NOM</text>
+                </g>
+
+                <!-- AFT STARBOARD (AS) — x=490 -->
+                <g id="station-marker-as_">
+                  <line id="sg-as_-vt" x1="490" y1="128" x2="490" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-as_-vb" x1="490" y1="132" x2="490" y2="136" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-as_-hl" x1="486" y1="132" x2="490" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <line id="sg-as_-hr" x1="490" y1="132" x2="494" y2="132" stroke="#10B981" stroke-width="1.5"/>
+                  <text id="sg-as_-val" x="490" y="106" fill="#06B6D4" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">AS | 3.13 ft | NOM</text>
+                </g>
+
+                <!-- MOB indicator (hidden until triggered) -->
+                <g id="mob-indicator" style="display:none" aria-label="Man overboard detected">
+                  <circle cx="200" cy="155" r="7" fill="none" stroke="#EF4444" stroke-width="2">
+                    <animate attributeName="r" values="7;13;7" dur="0.8s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="1;0.2;1" dur="0.8s" repeatCount="indefinite"/>
+                  </circle>
+                  <text x="200" y="175" fill="#EF4444" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">MOB</text>
+                </g>
+              </svg>
+            </div>
+
+            <!-- ── TELEMETRY VIEW ─────────────────────────────────────── -->
+            <div id="telemetry-view" style="display:none">
+              <div class="telemetry-terminal" role="log" aria-live="polite" aria-label="Live telemetry feed">
+                <div class="tel-header">FREQ AI SOL &mdash; LIVE TELEMETRY FEED</div>
+                <div class="tel-vessel">VESSEL: BARGE-402 &nbsp;|&nbsp; OP: DRAFT-SURVEY-001 &nbsp;|&nbsp; PHASE: <span id="tel-phase">1 OF 6</span></div>
+                <div class="tel-divider">&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;</div>
+
+                <div class="tel-section-header">DRAFT READINGS <span class="tel-ts">TIMESTAMP: <span id="tel-timestamp">--:--:--</span></span></div>
+                <div class="tel-divider dim">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+                <div class="tel-cols">
+                  <span class="tel-col-h">STATION</span>
+                  <span class="tel-col-h">READING</span>
+                  <span class="tel-col-h">STATUS</span>
+                  <span class="tel-col-h">DELTA</span>
+                </div>
+                <div class="tel-row"><span class="tel-station">FORE PORT</span><span class="tel-val"><span id="tel-fp">3.20</span> ft</span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">+0.00</span></div>
+                <div class="tel-row"><span class="tel-station">FORE STBD</span><span class="tel-val"><span id="tel-fs">3.18</span> ft</span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">+0.00</span></div>
+                <div class="tel-row"><span class="tel-station">MID PORT</span><span class="tel-val"><span id="tel-mp">3.25</span> ft</span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">+0.00</span></div>
+                <div class="tel-row"><span class="tel-station">MID STBD</span><span class="tel-val"><span id="tel-ms">3.23</span> ft</span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">+0.00</span></div>
+                <div class="tel-row"><span class="tel-station">AFT PORT</span><span class="tel-val"><span id="tel-ap">3.15</span> ft</span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">+0.00</span></div>
+                <div class="tel-row"><span class="tel-station">AFT STBD</span><span class="tel-val"><span id="tel-as_">3.13</span> ft</span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">+0.00</span></div>
+
+                <!-- MOB alert row -->
+                <div class="tel-row tel-alert" id="tel-mob-row" style="display:none" role="alert">
+                  <span class="tel-station mob-alert">MOB DETECTED</span>
+                  <span class="tel-val mob-alert">ZONE MID-PORT</span>
+                  <span class="tel-nom mob-alert">&#9679; EMERGENCY</span>
+                  <span class="tel-delta mob-alert">E-STOP</span>
+                </div>
+
+                <div class="tel-section-header">STABILITY ANALYSIS</div>
+                <div class="tel-divider dim">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+                <div class="tel-row"><span class="tel-station">TRIM</span><span class="tel-val"><span id="tel-trim">0.05 ft</span></span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">(AFT HEAVY)</span></div>
+                <div class="tel-row"><span class="tel-station">HEEL</span><span class="tel-val"><span id="tel-heel">0.01&#176;</span></span><span class="tel-nom">&#9650; NOMINAL</span><span class="tel-delta">(PORT)</span></div>
+                <div class="tel-row"><span class="tel-station">GM HEIGHT</span><span class="tel-val"><span id="tel-gm">5.20 ft</span></span><span class="tel-nom">&#9650; SAFE</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">FREEBOARD</span><span class="tel-val"><span id="tel-fb">6.50 ft</span></span><span class="tel-nom">&#9650; ADEQUATE</span><span class="tel-delta"></span></div>
+
+                <div class="tel-section-header">CARGO INTELLIGENCE</div>
+                <div class="tel-divider dim">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+                <div class="tel-row"><span class="tel-station">DISPLACEMENT</span><span class="tel-val"><span id="tel-disp">1000.0 T</span></span><span class="tel-nom">&#9650; CALCULATED</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">CARGO MASS</span><span class="tel-val"><span id="tel-cargo">0.0 T</span></span><span class="tel-nom">&#9650; VERIFIED</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">LOAD PROGRESS</span><span class="tel-val"><span id="tel-load">0%</span></span><span class="tel-nom">&#9650; MONITORING</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">EST. COMPLETE</span><span class="tel-val"><span id="tel-est">00:02:30</span></span><span class="tel-nom">&#9552; COUNTING</span><span class="tel-delta"></span></div>
+
+                <div class="tel-section-header">GOVERNANCE</div>
+                <div class="tel-divider dim">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+                <div class="tel-row"><span class="tel-station">WATCHDOG</span><span class="tel-val">ACTIVE</span><span class="tel-nom">&#9650; ALL CLEAR</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">MOB DETECTION</span><span class="tel-val">MONITORING</span><span class="tel-nom">&#9650; CLEAR</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">E-STOP</span><span class="tel-val">ARMED</span><span class="tel-nom">&#9650; STANDBY</span><span class="tel-delta"></span></div>
+                <div class="tel-row"><span class="tel-station">COMPLIANCE</span><span class="tel-val">USCG-46CFR</span><span class="tel-nom">&#9650; COMPLIANT</span><span class="tel-delta"></span></div>
+                <div class="tel-divider">&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;</div>
+                <div class="tel-op-time">OPERATION TIME: <span id="tel-optime">00:00:00</span></div>
+              </div>
+            </div><!-- /telemetry-view -->
+
+          </div><!-- /panel-body right -->
+        </div><!-- /sim-panel panel-freq -->
+      </div><!-- /sim-panels -->
+
+      <!-- ── PHASE PROGRESS BAR ──────────────────────────────────────────── -->
+      <div class="phase-progress-section" style="position:relative;">
+        <div class="phase-progress-header">OPERATIONAL SEQUENCE</div>
+        <div class="phase-nodes" id="phase-bar">
+          <div class="phase-node-wrap">
+            <div class="phase-node" id="phase-dot-0" tabindex="0" aria-label="Phase 1: Initial Survey">
+              <div class="phase-dot active"></div>
+            </div>
+            <div class="phase-node-label" id="phase-label-0">ACTIVE</div>
+            <div class="phase-node-name">Initial Survey</div>
+          </div>
+          <div class="phase-connector"></div>
+          <div class="phase-node-wrap">
+            <div class="phase-node" id="phase-dot-1" tabindex="0" aria-label="Phase 2: Pre-Load Assessment">
+              <div class="phase-dot pending"></div>
+            </div>
+            <div class="phase-node-label" id="phase-label-1">PENDING</div>
+            <div class="phase-node-name">Pre-Load</div>
+          </div>
+          <div class="phase-connector"></div>
+          <div class="phase-node-wrap">
+            <div class="phase-node" id="phase-dot-2" tabindex="0" aria-label="Phase 3: Active Loading">
+              <div class="phase-dot pending"></div>
+            </div>
+            <div class="phase-node-label" id="phase-label-2">PENDING</div>
+            <div class="phase-node-name">Active Loading</div>
+          </div>
+          <div class="phase-connector"></div>
+          <div class="phase-node-wrap">
+            <div class="phase-node" id="phase-dot-3" tabindex="0" aria-label="Phase 4: Cargo Verification">
+              <div class="phase-dot pending"></div>
+            </div>
+            <div class="phase-node-label" id="phase-label-3">PENDING</div>
+            <div class="phase-node-name">Verification</div>
+          </div>
+          <div class="phase-connector"></div>
+          <div class="phase-node-wrap">
+            <div class="phase-node" id="phase-dot-4" tabindex="0" aria-label="Phase 5: Post-Load Assessment">
+              <div class="phase-dot pending"></div>
+            </div>
+            <div class="phase-node-label" id="phase-label-4">PENDING</div>
+            <div class="phase-node-name">Post-Load</div>
+          </div>
+          <div class="phase-connector"></div>
+          <div class="phase-node-wrap">
+            <div class="phase-node" id="phase-dot-5" tabindex="0" aria-label="Phase 6: Final Survey and Report">
+              <div class="phase-dot pending"></div>
+            </div>
+            <div class="phase-node-label" id="phase-label-5">PENDING</div>
+            <div class="phase-node-name">Final Survey</div>
+          </div>
+        </div>
+        <!-- Phase tooltip -->
+        <div id="phase-tooltip" class="sim-tooltip" role="tooltip" style="display:none;"></div>
+        <!-- Current phase info -->
+        <div class="phase-info">
+          <div class="phase-info-name" id="phase-name">Phase 1: Initial Survey</div>
+          <div class="phase-info-desc" id="phase-desc">Empty vessel baseline. Draft ~3.2 ft all stations. Cargo mass 0 T. Loading parameters pending.</div>
+        </div>
+      </div>
+
+      <!-- ── COMPLETION PANEL ────────────────────────────────────────────── -->
+      <div class="completion-panel" id="completion-panel" role="status" style="display:none">
+        <div class="completion-header">SURVEY COMPLETE &#8212; BARGE-402</div>
+        <div class="completion-divider">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+        <div class="completion-grid">
+          <div class="completion-item">
+            <span class="completion-label">Total Operation Time:</span>
+            <span class="completion-val" id="completion-time">--</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Final Cargo Mass:</span>
+            <span class="completion-val" id="completion-cargo">1,482.6 T (VERIFIED)</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Final Average Draft:</span>
+            <span class="completion-val" id="completion-draft">9.84 ft</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Trim:</span>
+            <span class="completion-val">0.08 ft (NOMINAL)</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Heel:</span>
+            <span class="completion-val">0.01&#176; (NOMINAL)</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Measurement Accuracy:</span>
+            <span class="completion-val">&#177; 0.02 ft (SUB-INCH)</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Crew Deck Exposure:</span>
+            <span class="completion-val green-val">ZERO</span>
+          </div>
+          <div class="completion-item">
+            <span class="completion-label">Report Status:</span>
+            <span class="completion-val green-val">GENERATED &amp; LOGGED</span>
+          </div>
+        </div>
+        <div class="completion-divider">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+        <div class="completion-compare">vs. Manual Process: ~4 hours &#8594; 14 minutes &nbsp;|&nbsp; 1&#8211;3% error &#8594; sub-inch</div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- USE CASES -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Use Cases</span>
+      <h2>Where FREQ AI Operates</h2>
+      <div class="cards-grid">
+        <div class="uc-card">
+          <h3>Autonomous Barge Draft Measurement</h3>
+          <p>Automate the 4-hour manual drafting process in 10&#8211;15 minutes with zero crew exposure.</p>
+          <a href="/solutions-barge-drafting.html">View Solution &#8250;</a>
+        </div>
+        <div class="uc-card">
+          <h3>Cargo Load Optimization</h3>
+          <p>Maximize revenue per barge trip through precision loading and real-time stability monitoring.</p>
+        </div>
+        <div class="uc-card">
+          <h3>Safety Monitoring</h3>
+          <p>Continuous operational zone monitoring with automatic hazard detection and emergency protocols.</p>
+        </div>
+        <div class="uc-card">
+          <h3>Fleet Intelligence</h3>
+          <p>Real-time visibility across your entire barge fleet unified in a single intelligence platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section bg-secondary">
+    <div class="container cta-inner">
+      <h2>Ready to see what FREQ AI can do for your operation?</h2>
+      <p class="section-body">Connect with our team to learn how FREQ AI can transform your maritime drafting process.</p>
+      <a href="/contact.html" class="btn btn-primary">Contact Us</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="footer-logo">FREQ AI</span>
+        <p class="footer-tagline">Autonomous Maritime Intelligence</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Product</span>
+        <a href="/platform.html" class="footer-link">Platform</a>
+        <a href="/solutions-barge-drafting.html" class="footer-link">Barge Drafting</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Company</span>
+        <a href="/about.html" class="footer-link">About</a>
+        <a href="/team.html" class="footer-link">Team</a>
+        <a href="/contact.html" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Connect</span>
+        <a href="mailto:info@freqai.io" class="footer-link">info@freqai.io</a>
+        <a href="https://linkedin.com/in/andry-alvarez" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-link">Slidell, Louisiana</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FREQ AI. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/main.js"></script>
+<script src="/simulation.js"></script>
+</body>
+</html>
