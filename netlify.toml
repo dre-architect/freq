@@ -1,0 +1,33 @@
+[[redirects]]
+  from = "/platform"
+  to   = "/platform.html"
+  status = 200
+
+[[redirects]]
+  from = "/solutions/barge-drafting"
+  to   = "/solutions/barge-drafting.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to   = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/team"
+  to   = "/team.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to   = "/contact.html"
+  status = 200
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
